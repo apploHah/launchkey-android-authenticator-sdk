@@ -1,6 +1,17 @@
 Change Log
 ==========
 
+v2.1.0
+------
+
+* Added support for custom fonts via WhiteLabelConfig.Builder
+* Added support for custom device name with default UI and custom registerUser(...) method
+* Added support for unlinking other devices under the WL username
+* Added support for custom endpoint
+* Added support for custom SSL cert (when SSL Pinning is required for a custom endpoint)
+* Added proper contrast for branding (when present)
+* Bug fixes and enhancements
+
 v2.0.0
 ------
 
