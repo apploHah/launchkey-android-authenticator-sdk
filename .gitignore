@@ -32,3 +32,6 @@ proguard/
 app/app.iml
 .idea/
 /*.iml
+
+google-services.json
+whitelabel.xml
