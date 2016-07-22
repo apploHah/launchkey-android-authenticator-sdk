@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+* New WhiteLabelConfig.Builder constructor
+* Better error handling
+ - Error objects covering most scenarios
+ - New callbacks for manager objects returning error objects and success flags
+* Added SecurityService allowing implementers to get information in the current status on set Security Factors
+* Bug fixes and enhancements
+
 v2.1.0
 ------
 
