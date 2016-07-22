@@ -1,6 +1,9 @@
 Change Log
 ==========
 
+v2.2.0
+------
+
 * New WhiteLabelConfig.Builder constructor
 * Better error handling
  - Error objects covering most scenarios
