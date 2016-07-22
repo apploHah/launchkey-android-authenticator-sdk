@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="event_autodismiss_delay_milli">4000</integer>
+</resources>
