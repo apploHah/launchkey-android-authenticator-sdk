@@ -12,7 +12,7 @@ resource strings in any xml resource file under the res folder of the project:
 
 ```xml
 <string name="whitelabel_sdk_key">YOUR WHITE LABEL SDK KEY HERE</string>
-<string name="whitelabel_googlemapsv2_key">YOUR GOOGLE MAPS V2 API KEY</string>
+<string name="whitelabel_googlemapsv2_key">YOUR GOOGLE MAPS API V2 ANDROID KEY HERE</string>
 ```
 
 The White Label SDK key is given by the LaunchKey Dashboard, and the Google Maps API v2 
