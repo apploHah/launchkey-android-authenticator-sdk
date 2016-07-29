@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <Button
+        android:id="@+id/demo_authorizations_item_button"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        tools:text="Remove"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/demo_authorizations_item_button"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/demo_authorizations_item_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:maxLines="1"
+            tools:text="Name"
+            />
+
+        <TextView
+            android:id="@+id/demo_authorizations_item_context"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:maxLines="1"
+            tools:text="Context"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/demo_authorizations_item_button"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        >
+
+        <TextView
+            android:id="@+id/demo_authorizations_item_text_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            tools:text="ACTION"
+            />
+
+        <TextView
+            android:id="@+id/demo_authorizations_item_text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            tools:text="STATUS"
+            />
+
+        <TextView
+            android:id="@+id/demo_authorizations_item_text_transactional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            tools:text="TRANSACTIONAL"
+            />
+    </LinearLayout>
+</RelativeLayout>

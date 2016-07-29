@@ -1,8 +1,23 @@
 # LaunchKey Android White Label SDK
 
+  * [Getting Started](#gettingstarted)
   * [Overview](#overview)
   * [Links](#links)
   * [Support](#support)
+
+# <a name="gettingstarted"></a>Getting Started
+
+In order to make this demo application compile and run, make sure to define the following 
+resource strings in any xml resource file under the res folder of the project:
+
+```xml
+<string name="whitelabel_sdk_key">YOUR WHITE LABEL SDK KEY HERE</string>
+<string name="whitelabel_googlemapsv2_key">YOUR GOOGLE MAPS API V2 ANDROID KEY HERE</string>
+```
+
+The White Label SDK key is given by the LaunchKey Dashboard, and the Google Maps API v2 
+key will allow you to use Google Maps in order to set Geofencing as one of the Security 
+Factors. Check the developer documentation in the links below for more information.
 
 # <a name="overview"></a>Overview
 
