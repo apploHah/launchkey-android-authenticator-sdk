@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
 import com.launchkey.android.whitelabel.demo.R;
-import com.launchkey.android.whitelabel.demo.ui.activity.BaseDemoActivity;
+import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
 
 /**
  * Created by armando on 7/8/16.
@@ -63,5 +63,26 @@ public class GenericFragmentDemoActivity extends BaseDemoActivity {
                     .add(R.id.demo_activity_fragment_container, f)
                     .commit();
         }
+
+        getWhiteLabelManager().addAccountStateListener(new WhiteLabelManager.AccountStateListener() {
+            @Override
+            public void onRequestUpdate(boolean b) {}
+
+            @Override
+            public void onAuthenticationSuccess(boolean b) {
+                finish();
+            }
+
+            @Override
+            public void onAuthenticationFailure() {}
+
+            @Override
+            public void onLogout() {}
+
+            @Override
+            public void onUnlink() {
+                finish();
+            }
+        });
     }
 }

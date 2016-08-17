@@ -20,7 +20,7 @@ public class DemoApplication extends WhiteLabelApplication {
 
     private static final int NOTIFICATION_ID = 100;
 
-    private NotificationManagerCompat mNotificationManager;
+    private static NotificationManagerCompat mNotificationManager;
 
     @Override
     public void onCreate() {
@@ -60,6 +60,7 @@ public class DemoApplication extends WhiteLabelApplication {
 
         Intent tapIntent = new Intent(this, ListDemoActivity.class);
         tapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        tapIntent.putExtra(ListDemoActivity.EXTRA_SHOW_REQUEST, true);
 
         PendingIntent tapPendingIntent = PendingIntent.getActivity(this, 1, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -74,5 +75,11 @@ public class DemoApplication extends WhiteLabelApplication {
 
 
         mNotificationManager.notify(NOTIFICATION_ID, notification);
+    }
+
+    public static void cancelRequestNotification() {
+        if (mNotificationManager != null) {
+            mNotificationManager.cancel(NOTIFICATION_ID);
+        }
     }
 }

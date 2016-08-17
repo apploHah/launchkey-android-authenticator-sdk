@@ -12,10 +12,8 @@ import android.widget.ListView;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.ui.adapter.DemoDevicesAdapter;
 import com.launchkey.android.whitelabel.demo.util.Utils;
-import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
 import com.launchkey.android.whitelabel.sdk.device.Device;
 import com.launchkey.android.whitelabel.sdk.device.DeviceCenter;
-import com.launchkey.android.whitelabel.sdk.error.BaseError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,6 @@ public class CustomDevicesFragment extends BaseDemoFragment
     private ListView mList;
     private DemoDevicesAdapter mAdapter;
     private DeviceCenter mDeviceCenter;
-    private boolean mUnlinkingCurrentDevice = false;
 
     @Nullable
     @Override
@@ -69,21 +66,8 @@ public class CustomDevicesFragment extends BaseDemoFragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        mUnlinkingCurrentDevice = position == 0;
-
-        if (mUnlinkingCurrentDevice) {
-            getWhiteLabelManager().unlink(new WhiteLabelManager.UnlinkListener() {
-
-                @Override
-                public void onUnlink(boolean success, BaseError error) {
-                    Utils.finish(CustomDevicesFragment.this);
-                }
-            });
-        } else {
-            Device deviceToUnlink = mAdapter.getItem(position);
-            mDeviceCenter.unlink(deviceToUnlink);
-        }
+        Device deviceToUnlink = mAdapter.getItem(position);
+        mDeviceCenter.unlink(deviceToUnlink);
     }
 
     @Override

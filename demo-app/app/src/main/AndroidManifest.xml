@@ -40,6 +40,16 @@
             android:name=".ui.activity.GenericFragmentDemoActivity"
             />
 
+        <activity
+            android:name=".ui.activity.AuthRequestActivity"
+            android:label="@string/demo_activity_authrequest_title"
+            />
+
+        <activity
+            android:name=".ui.activity.OtpsActivity"
+            android:label="@string/demo_activity_otps_title"
+            />
+
         <!-- GCM-related receiver and service -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

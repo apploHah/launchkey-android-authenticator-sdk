@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.launchkey.android.whitelabel.demo.R;
+import com.launchkey.android.whitelabel.demo.app.DemoApplication;
 import com.launchkey.android.whitelabel.demo.ui.adapter.DemoFeatureAdapter;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomAuthorizationsFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomAuthorizationsFragment2;
@@ -27,12 +28,13 @@ import com.launchkey.android.whitelabel.sdk.ui.AuthRequestFragment;
 import com.launchkey.android.whitelabel.sdk.ui.fragment.AuthorizationsFragment;
 import com.launchkey.android.whitelabel.sdk.ui.fragment.DevicesFragment;
 import com.launchkey.android.whitelabel.sdk.ui.fragment.LogsFragment;
-import com.launchkey.android.whitelabel.sdk.ui.fragment.TotpsFragment;
 
 /**
  * Created by armando on 7/8/16.
  */
 public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelManager.SessionListener, WhiteLabelManager.AccountStateListener, AdapterView.OnItemClickListener {
+
+    public static final String EXTRA_SHOW_REQUEST = "extraShowRequest";
 
     private static final String ERROR_DEVICE_UNLINKED = "Device is unlinked";
     private static final String ERROR_DEVICE_LINKED = "Device is already linked";
@@ -43,7 +45,8 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
             R.string.demo_activity_list_feature_link_custom,
             R.string.demo_activity_list_feature_security,
             R.string.demo_activity_list_feature_securityinfo,
-            R.string.demo_activity_list_feature_requests,
+            R.string.demo_activity_list_feature_requests_runtime,
+            R.string.demo_activity_list_feature_requests_xml,
             R.string.demo_activity_list_feature_logout_default,
             R.string.demo_activity_list_feature_logout_custom,
             R.string.demo_activity_list_feature_unlink_default,
@@ -81,6 +84,34 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
         mList = (ListView) findViewById(R.id.list_listview);
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
+
+        processIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        processIntent(intent);
+    }
+
+    private void processIntent(Intent i) {
+        if (i == null || !i.hasExtra(EXTRA_SHOW_REQUEST)) {
+            return;
+        }
+
+        if (i.getBooleanExtra(EXTRA_SHOW_REQUEST, false)) {
+            onItemClick(null, null, getPositionOfFeature(R.string.demo_activity_list_feature_requests_xml), 0);
+        }
+    }
+
+    private int getPositionOfFeature(int feature) {
+        for (int i = 0; i < FEATURES_RES.length; i++) {
+            if (feature == FEATURES_RES[i]) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     private void updateToolbarTitle() {
@@ -99,6 +130,8 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
         getWhiteLabelManager().addAccountStateListener(this);
         getWhiteLabelManager().addStatusListener(this);
         getWhiteLabelManager().checkForActiveSessions();
+
+        DemoApplication.cancelRequestNotification();
     }
 
     @Override
@@ -143,11 +176,20 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                 }
                 break;
 
-            case R.string.demo_activity_list_feature_requests:
+            case R.string.demo_activity_list_feature_requests_runtime:
                 if (!linked) {
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
                     fragmentClassName = AuthRequestFragment.class.getCanonicalName();
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_requests_xml:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    Intent authRequestActivity = new Intent(this, AuthRequestActivity.class);
+                    startActivity(authRequestActivity);
                 }
                 break;
 
@@ -268,7 +310,8 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                 if (!linked) {
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
-                    fragmentClassName = TotpsFragment.class.getCanonicalName();
+                    Intent otpsActivity = new Intent(this, OtpsActivity.class);
+                    startActivity(otpsActivity);
                 }
                 break;
 
