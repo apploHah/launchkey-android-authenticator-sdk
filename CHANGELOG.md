@@ -1,6 +1,20 @@
 Change Log
 ==========
 
+v2.2.1
+------
+
+* Added
+ - Improvements to the handling of remote unlinking of the device in use.
+ - Improvements to how the current device is unlinked when done so in the list of linked devices.
+ - Improvements to `AuthRequestFragment`'s included toolbar; now hidden by default and changed via `AuthRequestFragment.setToolbarVisible(boolean)`.
+
+* Fixed
+ - Issue #6: Crash due to lack of a null-check in `AuthRequestFragment`.
+
+* Deprecated
+ - `WhiteLabelManager.hasActiveSessions()` in favor of listeners when the status is updated `WhiteLabelManager.add/removeStatusListener(WhiteLabelManager.SessionListener)`.
+
 v2.2.0
 ------
 
