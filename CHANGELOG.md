@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+v2.3.0
+------
+
+* Added
+ - Improvements (issue #7) to the generation of the Key Pair when linking the device. `WhiteLabelConfig.Builder` now accepts a custom size for the key pair, and the key is generated when `WhiteLabelManager` is initialized with such `WhiteLabelConfig` object in the background instead of when attempting to link.
+ - Improvements to the Auth Request UI and verbiage when more factors were required by the Application.
+ - Improvements to the linking code and device name validators.
+ - Updates to Javadocs with changes in this v2.3.0 release.
+
+* Fixed
+ - Issue #10: `AuthRequestFragment` now automatically continues with the authentication once the user sets more factors if the Auth Request requires it.
+
 v2.2.1
 ------
 
