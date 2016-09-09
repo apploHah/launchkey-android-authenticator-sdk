@@ -6,6 +6,8 @@
     <string name="demo_activity_authrequest_title">Auth Request</string>
     <string name="demo_activity_otps_title">One-Time Passwords</string>
 
+    <string name="demo_activity_authrequest_norequests_message">No pending requests</string>
+
     <string name="demo_activity_list_feature_link_default_manual">Link (Default UI - Manual)</string>
     <string name="demo_activity_list_feature_link_default_scanner">Link (Default UI - Scanner)</string>
     <string name="demo_activity_list_feature_link_custom">Link (Custom UI - Manual)</string>

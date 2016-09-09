@@ -22,6 +22,7 @@ import com.launchkey.android.whitelabel.sdk.ui.AuthRequestFragment;
 public class AuthRequestActivity extends BaseDemoActivity implements WhiteLabelManager.AccountStateListener {
 
     private AuthRequestFragment mAuthRequest;
+    private View mNoRequestsView;
     private Toolbar mToolbar;
     private BroadcastReceiver mAuthRequestReceiver;
 
@@ -33,6 +34,8 @@ public class AuthRequestActivity extends BaseDemoActivity implements WhiteLabelM
         mToolbar = (Toolbar) findViewById(R.id.demo_activity_authrequest_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Request");
+
+        mNoRequestsView = findViewById(R.id.demo_activity_authrequest_norequest);
 
         mAuthRequest = (AuthRequestFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.demo_activity_authrequest_fragment);
@@ -95,6 +98,8 @@ public class AuthRequestActivity extends BaseDemoActivity implements WhiteLabelM
 
     @Override
     public void onRequestUpdate(boolean hasPending) {
+
+        mNoRequestsView.setVisibility(hasPending ? View.GONE : View.VISIBLE);
 
         if (hasPending) {
             mToolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp);
