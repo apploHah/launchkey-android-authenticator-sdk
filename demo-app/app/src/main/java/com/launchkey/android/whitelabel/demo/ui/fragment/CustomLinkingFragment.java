@@ -16,11 +16,12 @@ import android.widget.EditText;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.util.Utils;
 import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
+import com.launchkey.android.whitelabel.sdk.error.BaseError;
 
 /**
  * Created by armando on 7/8/16.
  */
-public class CustomLinkingFragment extends BaseDemoFragment implements WhiteLabelManager.UserRegistrationListener {
+public class CustomLinkingFragment extends BaseDemoFragment {
 
     private EditText mCode, mName;
     private CheckBox mProvideName;
@@ -65,41 +66,53 @@ public class CustomLinkingFragment extends BaseDemoFragment implements WhiteLabe
         String linkingCode = mCode.getText().toString().trim();
         String customDeviceName = mName.getText().toString().trim();
 
-        if (linkingCode.length() != 7) {
-            showAlert("Error", "Linking code must be 7 characters");
+        if (!linkingCode.matches(WhiteLabelManager.REGEX_LINKING_CODE)) {
+            showAlert("Error", "Linking code has illegal characters. Allowed structure: "
+                    + WhiteLabelManager.REGEX_LINKING_CODE);
             return;
         }
 
+        WhiteLabelManager.UserRegistrationListener2 registrationListener =
+                new WhiteLabelManager.UserRegistrationListener2() {
+                    @Override
+                    public void onStart() {
+                        mLinkingDialog.show();
+                        mLinkingDialog.setMessage("Preparing device...");
+                    }
+
+                    @Override
+                    public void onCodeVerification() {
+                        mLinkingDialog.setMessage("Verifying linking code...");
+                    }
+
+                    @Override
+                    public void onComplete(boolean successful, BaseError error) {
+                        mLinkingDialog.dismiss();
+
+                        if (successful) {
+                            Utils.finish(CustomLinkingFragment.this);
+                        } else {
+                            showAlert("Error", Utils.getMessageForBaseError(error));
+                        }
+                    }
+                };
+
         //depending on the desired approach, it is possible to provide a custom device name
+        // if no custom device name is provided, a default one will be generated
+        // based on the model and manufacturer.
 
         if (mProvideName.isChecked()) {
-            getWhiteLabelManager().registerUser(getActivity(), linkingCode, customDeviceName, this);
+
+            if (!customDeviceName.matches(WhiteLabelManager.REGEX_DEVICE_NAME)) {
+                showAlert("Error", "Device name has illegal characters. Allowed structure: "
+                        + WhiteLabelManager.REGEX_DEVICE_NAME);
+                return;
+            }
+
+            getWhiteLabelManager().registerUser(getActivity(), linkingCode, customDeviceName, registrationListener);
         } else {
-            getWhiteLabelManager().registerUser(getActivity(), linkingCode, this);
+            getWhiteLabelManager().registerUser(getActivity(), linkingCode, registrationListener);
         }
-    }
-
-    @Override
-    public void onStarted() {
-        mLinkingDialog.show();
-        mLinkingDialog.setMessage("Preparing device...");
-    }
-
-    @Override
-    public void onVerifyingCode() {
-        mLinkingDialog.setMessage("Verifying linking code...");
-    }
-
-    @Override
-    public void onSuccess() {
-        mLinkingDialog.dismiss();
-        Utils.finish(this);
-    }
-
-    @Override
-    public void onFailure(String errorMessage, String errorCode) {
-        mLinkingDialog.dismiss();
-        showAlert("Error", errorMessage);
     }
 
     private void showAlert(String title, String message) {

@@ -33,12 +33,13 @@ public final class Utils {
         }
     }
 
-    public static void simpleSnackbarForBaseError(View v, BaseError e) {
-        if (v == null || e == null) {
-            return;
-        }
+    public static String getMessageForBaseError(BaseError e) {
 
-        String m;
+        String m = "";
+
+        if (e == null) {
+            return m;
+        }
 
         if (e instanceof NoInternetConnectivityError) {
             m = "No internet connectivity--check your connection";
@@ -59,6 +60,16 @@ public final class Utils {
         } else {
             m = "Unknown error=" + e.getMessage();
         }
+
+        return m;
+    }
+
+    public static void simpleSnackbarForBaseError(View v, BaseError e) {
+        if (v == null || e == null) {
+            return;
+        }
+
+        String m = getMessageForBaseError(e);
 
         simpleSnackbar(v, m, Snackbar.LENGTH_INDEFINITE);
     }

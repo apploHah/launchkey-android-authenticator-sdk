@@ -30,7 +30,11 @@ public class DemoApplication extends WhiteLabelApplication {
     }
 
     private void init() {
+        int keyPairSizeBits = WhiteLabelConfig.Builder.KEYSIZE_MEDIUM;
+        //keyPairSizeBits = 3072; //Could also assign the actual value in bits.
+
         WhiteLabelConfig c = new WhiteLabelConfig.Builder(this, R.string.whitelabel_sdk_key)
+                .keyPairSize(keyPairSizeBits)
                 .themeColorPrimaryRes(R.color.demo_primary)
                 .themeColorPrimaryTextAndIconsRes(R.color.demo_primaryTextIcons)
                 .themeColorSecondaryRes(R.color.demo_accent)
