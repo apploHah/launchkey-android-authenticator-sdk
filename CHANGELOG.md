@@ -1,6 +1,15 @@
 Change Log
 ==========
 
+v2.3.1
+------
+* Added
+ * Support for push notifications sent to the White Label device that is unlinked remotely by notifying the usual `onUnlink()` callback.
+ * General improvements.
+
+* Fixed
+ * Issue #15: `AuthRequestFragment` will now have the SDK call `onUnlink()` when the device is unlinked by an API response when checking for a pending Auth Request.
+
 v2.3.0
 ------
 
