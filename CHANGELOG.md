@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+v2.3.2
+------
+* Added
+ * New implementation `WhiteLabelManager.AccountStateListener2` that will take over the now deprecated `WhiteLabelManager.AccountStateListener`. Continue calling `WhiteLabelManager.add/removeAccountStateListener` to register and unregister for those events. The difference with the initial version is that `AccountStateListener2.onAuthenticationFailure(…)` now returns a `BaseError` object to deal with errors generated when responding to an Auth Request.
+ * `ExpiredAuthRequestError` will now be returned in `AccountStateListener2.onAuthenticationFailure(…)` to allow the integrator to react to that event and notify the end user of the expired/invalid Auth Request with a custom user interface.
+ * General improvements.
+
+* Removed
+ * Toast served by the WL SDK notifying the end user of an expired/old pending Auth Request immediately after responding to one. (Reference the second bullet point in “Added” section above)
+
+* Fixed
+ * Fixed Javadocs entries for various methods in `WhiteLabelManager`.
+
 v2.3.1
 ------
 * Added
