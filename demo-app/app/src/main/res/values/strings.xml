@@ -2,11 +2,15 @@
 <resources>
     <string name="app_name">White Label Demo</string>
 
+    <string name="demo_generic_ok">OK</string>
+
     <string name="demo_activity_list_title_format">WL Demo (%1$s)</string>
     <string name="demo_activity_authrequest_title">Auth Request</string>
     <string name="demo_activity_otps_title">One-Time Passwords</string>
 
     <string name="demo_activity_authrequest_norequests_message">No pending requests</string>
+    <string name="demo_activity_authrequest_dialog_unlinked_title">Device unlinked</string>
+    <string name="demo_activity_authrequest_dialog_unlinked_message">This device has been unlinked. Tap "OK" to go back and re-link the device with a valid linking code.</string>
 
     <string name="demo_activity_list_feature_link_default_manual">Link (Default UI - Manual)</string>
     <string name="demo_activity_list_feature_link_default_scanner">Link (Default UI - Scanner)</string>
