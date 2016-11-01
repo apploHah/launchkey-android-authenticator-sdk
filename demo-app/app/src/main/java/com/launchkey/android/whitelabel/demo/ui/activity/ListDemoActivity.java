@@ -23,7 +23,9 @@ import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogsFragment2;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomTotpsFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomUnlinkFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.SecurityInfoFragment;
+import com.launchkey.android.whitelabel.demo.util.Utils;
 import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
+import com.launchkey.android.whitelabel.sdk.error.BaseError;
 import com.launchkey.android.whitelabel.sdk.ui.AuthRequestFragment;
 import com.launchkey.android.whitelabel.sdk.ui.fragment.AuthorizationsFragment;
 import com.launchkey.android.whitelabel.sdk.ui.fragment.DevicesFragment;
@@ -32,7 +34,7 @@ import com.launchkey.android.whitelabel.sdk.ui.fragment.LogsFragment;
 /**
  * Created by armando on 7/8/16.
  */
-public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelManager.SessionListener, WhiteLabelManager.AccountStateListener, AdapterView.OnItemClickListener {
+public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelManager.SessionListener, WhiteLabelManager.AccountStateListener2, AdapterView.OnItemClickListener {
 
     public static final String EXTRA_SHOW_REQUEST = "extraShowRequest";
 
@@ -367,9 +369,9 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
     }
 
     @Override
-    public void onAuthenticationFailure() {
+    public void onAuthenticationFailure(BaseError error) {
         updateToolbarTitle();
-        showError("Authentication failure");
+        showError("Authentication failure: " + Utils.getMessageForBaseError(error));
     }
 
     @Override
