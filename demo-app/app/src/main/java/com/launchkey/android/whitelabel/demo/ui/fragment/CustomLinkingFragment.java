@@ -1,7 +1,6 @@
 package com.launchkey.android.whitelabel.demo.ui.fragment;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -13,18 +12,21 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
+import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
+import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.util.Utils;
-import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
-import com.launchkey.android.whitelabel.sdk.error.BaseError;
 
 /**
  * Created by armando on 7/8/16.
  */
 public class CustomLinkingFragment extends BaseDemoFragment {
 
-    private EditText mCode, mName;
+    private EditText mCode;
+    private EditText mName;
     private CheckBox mProvideName;
+    private CheckBox mOverrideNameIfUsed;
     private ProgressDialog mLinkingDialog;
 
     @Nullable
@@ -39,7 +41,7 @@ public class CustomLinkingFragment extends BaseDemoFragment {
         mCode = (EditText) root.findViewById(R.id.demo_link_edit_code);
         mName = (EditText) root.findViewById(R.id.demo_link_edit_name);
 
-        mProvideName = (CheckBox) root.findViewById(R.id.demo_link_checkbox_devicename);
+        mProvideName = (CheckBox) root.findViewById(R.id.demo_link_checkbox_devicename_custom);
         mProvideName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -47,6 +49,8 @@ public class CustomLinkingFragment extends BaseDemoFragment {
                 mName.setEnabled(isChecked);
             }
         });
+
+        mOverrideNameIfUsed = (CheckBox) root.findViewById(R.id.demo_link_checkbox_devicename_override);
 
         Button link = (Button) root.findViewById(R.id.demo_link_button);
         link.setOnClickListener(new View.OnClickListener() {
@@ -66,27 +70,29 @@ public class CustomLinkingFragment extends BaseDemoFragment {
         String linkingCode = mCode.getText().toString().trim();
         String customDeviceName = mName.getText().toString().trim();
 
-        if (!linkingCode.matches(WhiteLabelManager.REGEX_LINKING_CODE)) {
+        if (!linkingCode.matches(AuthenticatorManager.REGEX_LINKING_CODE)) {
             showAlert("Error", "Linking code has illegal characters. Allowed structure: "
-                    + WhiteLabelManager.REGEX_LINKING_CODE);
+                    + AuthenticatorManager.REGEX_LINKING_CODE);
             return;
         }
 
-        WhiteLabelManager.UserRegistrationListener2 registrationListener =
-                new WhiteLabelManager.UserRegistrationListener2() {
-                    @Override
-                    public void onStart() {
-                        mLinkingDialog.show();
-                        mLinkingDialog.setMessage("Preparing device...");
-                    }
+        //depending on the desired approach, it is possible to provide a custom device name
+        // if no custom device name is provided, a default one will be generated
+        // based on the model and manufacturer.
+
+        mLinkingDialog.show();
+        mLinkingDialog.setMessage("Verifying linking code...");
+
+        final String deviceName = mProvideName.isChecked() ? customDeviceName : null;
+        final boolean overrideNameIfUsed = mOverrideNameIfUsed.isChecked();
+
+        AuthenticatorManager
+                .getInstance()
+                .linkDevice(linkingCode, deviceName, overrideNameIfUsed, new SimpleOperationCallback() {
 
                     @Override
-                    public void onCodeVerification() {
-                        mLinkingDialog.setMessage("Verifying linking code...");
-                    }
+                    public void onResult(boolean successful, BaseError error, Object extra) {
 
-                    @Override
-                    public void onComplete(boolean successful, BaseError error) {
                         mLinkingDialog.dismiss();
 
                         if (successful) {
@@ -95,40 +101,16 @@ public class CustomLinkingFragment extends BaseDemoFragment {
                             showAlert("Error", Utils.getMessageForBaseError(error));
                         }
                     }
-                };
-
-        //depending on the desired approach, it is possible to provide a custom device name
-        // if no custom device name is provided, a default one will be generated
-        // based on the model and manufacturer.
-
-        if (mProvideName.isChecked()) {
-
-            if (!customDeviceName.matches(WhiteLabelManager.REGEX_DEVICE_NAME)) {
-                showAlert("Error", "Device name has illegal characters. Allowed structure: "
-                        + WhiteLabelManager.REGEX_DEVICE_NAME);
-                return;
-            }
-
-            getWhiteLabelManager().registerUser(getActivity(), linkingCode, customDeviceName, registrationListener);
-        } else {
-            getWhiteLabelManager().registerUser(getActivity(), linkingCode, registrationListener);
-        }
+                });
     }
 
     private void showAlert(String title, String message) {
-
-        DialogInterface.OnDismissListener dismissListener = new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                Utils.finish(CustomLinkingFragment.this);
-            }
-        };
 
         new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton("OK", null)
-                .setOnDismissListener(dismissListener)
+                .setOnDismissListener(null)
                 .create()
                 .show();
     }

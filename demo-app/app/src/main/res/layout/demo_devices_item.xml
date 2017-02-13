@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
+            android:textSize="12sp"
             tools:text="Name"
             />
 
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:maxLines="1"
+            android:textSize="12sp"
             tools:text="Status"
             />
     </LinearLayout>

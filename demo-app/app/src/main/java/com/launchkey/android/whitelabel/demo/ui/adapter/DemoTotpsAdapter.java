@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.launchkey.android.authenticator.sdk.otp.Otp;
+import com.launchkey.android.authenticator.sdk.otp.OtpCenter;
 import com.launchkey.android.whitelabel.demo.R;
-import com.launchkey.android.whitelabel.sdk.otp.Otp;
-import com.launchkey.android.whitelabel.sdk.otp.OtpCenter;
 
 import java.util.List;
 

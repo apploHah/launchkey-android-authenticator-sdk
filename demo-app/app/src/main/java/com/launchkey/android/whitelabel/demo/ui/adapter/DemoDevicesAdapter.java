@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.whitelabel.demo.R;
-import com.launchkey.android.whitelabel.sdk.device.Device;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,15 +73,6 @@ public class DemoDevicesAdapter extends BaseAdapter {
 
         Device d = getItem(position);
 
-        String literalStatus = "Linked"; //default
-
-        if (d.getStatus() == Device.STATUS_LINKING) {
-            literalStatus = "Linking...";
-        } else if (d.getStatus() == Device.STATUS_UNLINKING) {
-            literalStatus = "Unlinking...";
-        }
-
-
         TextView currentDevice = (TextView) v.findViewById(R.id.demo_devices_item_currentdevice);
         currentDevice.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
 
@@ -89,7 +80,7 @@ public class DemoDevicesAdapter extends BaseAdapter {
         name.setText(d.getName());
 
         TextView status = (TextView) v.findViewById(R.id.demo_devices_item_status);
-        status.setText(literalStatus);
+        status.setText(d.getType());
 
         Button button = (Button) v.findViewById(R.id.demo_devices_item_button);
         button.setOnClickListener(mInternalClickListener);

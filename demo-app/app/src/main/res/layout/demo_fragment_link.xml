@@ -11,12 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:hint="Linking code"
         android:maxLength="7"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:hint="Linking code"
         />
 
     <CheckBox
-        android:id="@+id/demo_link_checkbox_devicename"
+        android:id="@+id/demo_link_checkbox_devicename_override"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:checked="true"
+        android:text="Allow device name override if used"
+        />
+
+    <CheckBox
+        android:id="@+id/demo_link_checkbox_devicename_custom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
@@ -28,8 +40,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:hint="Device name"
         android:enabled="false"
+        android:inputType="text"
+        android:lines="1"
+        android:maxLines="1"
+        android:hint="Device name"
         />
 
     <Button

@@ -1,36 +1,35 @@
 package com.launchkey.android.whitelabel.demo.ui.activity;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.launchkey.android.authenticator.sdk.auth.AuthRequest;
+import com.launchkey.android.authenticator.sdk.auth.AuthRequestManager;
+import com.launchkey.android.authenticator.sdk.auth.event.AuthRequestResponseEventCallback;
+import com.launchkey.android.authenticator.sdk.auth.event.GetAuthRequestEventCallback;
+import com.launchkey.android.authenticator.sdk.error.BaseError;
+import com.launchkey.android.authenticator.sdk.error.DeviceNotLinkedError;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.util.Utils;
-import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
-import com.launchkey.android.whitelabel.sdk.error.BaseError;
-import com.launchkey.android.whitelabel.sdk.error.ExpiredAuthRequestError;
-import com.launchkey.android.whitelabel.sdk.ui.AuthRequestFragment;
 
 /**
  * Created by armando on 8/9/16.
  */
-public class AuthRequestActivity extends BaseDemoActivity implements WhiteLabelManager.AccountStateListener2 {
+public class AuthRequestActivity extends BaseDemoActivity {
 
-    private AuthRequestFragment mAuthRequest;
-    private View mNoRequestsView;
+    private AuthRequestManager mAuthRequestManager;
+    private TextView mNoRequestsView;
     private Toolbar mToolbar;
-    private BroadcastReceiver mAuthRequestReceiver;
+    private GetAuthRequestEventCallback mGetAuthCallback;
+    private AuthRequestResponseEventCallback mAuthResponseCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,15 +40,56 @@ public class AuthRequestActivity extends BaseDemoActivity implements WhiteLabelM
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Request");
 
-        mNoRequestsView = findViewById(R.id.demo_activity_authrequest_norequest);
+        mNoRequestsView = (TextView) findViewById(R.id.demo_activity_authrequest_norequest);
 
-        mAuthRequest = (AuthRequestFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.demo_activity_authrequest_fragment);
+        mAuthRequestManager = AuthRequestManager.getInstance(this);
 
-        mAuthRequestReceiver = new BroadcastReceiver() {
+        mGetAuthCallback = new GetAuthRequestEventCallback() {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                onRefresh();
+            public void onEventResult(boolean successful, BaseError error, AuthRequest authRequest) {
+
+                boolean hasPending = successful && authRequest != null;
+
+                if (!hasPending) {
+                    mNoRequestsView.setText("No pending requests");
+                }
+
+                if (successful) {
+                    mNoRequestsView.setVisibility(hasPending ? View.GONE : View.VISIBLE);
+
+                    if (hasPending) {
+                        mToolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp);
+                        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                onDeny();
+                            }
+                        });
+                    } else {
+                        mToolbar.setNavigationIcon(null);
+                    }
+                } else {
+                    //let the callback handle the error
+                    mAuthResponseCallback.onEventResult(false, error, null);
+                }
+            }
+        };
+
+        mAuthResponseCallback = new AuthRequestResponseEventCallback() {
+            @Override
+            public void onEventResult(boolean successful, BaseError error, Boolean authorized) {
+                if (successful) {
+                    mGetAuthCallback.onEventResult(true, null, null);
+                } else {
+                    if (error instanceof DeviceNotLinkedError) {
+                        showUnlinkedDialog();
+                    } else {
+                        //this will potentially cover ExpiredAuthRequestError most of the time
+                        Toast.makeText(AuthRequestActivity.this, Utils.getMessageForBaseError(error), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                finish();
             }
         };
     }
@@ -75,67 +115,23 @@ public class AuthRequestActivity extends BaseDemoActivity implements WhiteLabelM
     @Override
     protected void onResume() {
         super.onResume();
-        getWhiteLabelManager().addAccountStateListener(this);
-
-        IntentFilter authRequestNotifFilter = new IntentFilter(WhiteLabelManager.ACTION_EVENT_REQUEST_INCOMING);
-        LocalBroadcastManager.getInstance(this).registerReceiver(mAuthRequestReceiver, authRequestNotifFilter);
+        mAuthRequestManager.registerForEvents(mGetAuthCallback, mAuthResponseCallback);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        getWhiteLabelManager().removeAccountStateListener(this);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mAuthRequestReceiver);
+        mAuthRequestManager.unregisterForEvents(mGetAuthCallback, mAuthResponseCallback);
     }
 
     private void onDeny() {
-        mAuthRequest.deny();
+        mAuthRequestManager.denyAuthRequest();
     }
 
     private void onRefresh() {
-        mAuthRequest.checkForPending();
+        mNoRequestsView.setText("Checking...");
+        mAuthRequestManager.check();
     }
-
-    @Override
-    public void onAuthenticationSuccess(boolean approved) {
-        onRequestUpdate(false);
-        finish();
-    }
-
-    @Override
-    public void onRequestUpdate(boolean hasPending) {
-
-        mNoRequestsView.setVisibility(hasPending ? View.GONE : View.VISIBLE);
-
-        if (hasPending) {
-            mToolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp);
-            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onDeny();
-                }
-            });
-        } else {
-            mToolbar.setNavigationIcon(null);
-        }
-    }
-
-    @Override
-    public void onAuthenticationFailure(BaseError error) {
-        if (error instanceof ExpiredAuthRequestError) {
-            Toast.makeText(this, Utils.getMessageForBaseError(error), Toast.LENGTH_SHORT).show();
-        }
-
-        finish();
-    }
-
-    @Override
-    public void onUnlink() {
-        showUnlinkedDialog();
-    }
-
-    @Override
-    public void onLogout() {}
 
     private void showUnlinkedDialog() {
 

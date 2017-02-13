@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/demo_activity_authrequest_fragment"
-        android:name="com.launchkey.android.whitelabel.sdk.ui.AuthRequestFragment"
+        android:name="com.launchkey.android.authenticator.sdk.ui.AuthRequestFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@id/demo_activity_authrequest_toolbar"

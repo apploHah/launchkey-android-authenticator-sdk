@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DemoAppTheme" parent="AuthenticatorTheme">
+
+        <item name="authenticatorColorPrimary">#00BCD4</item>
+        <item name="authenticatorColorPrimaryDark">#00838F</item>
+        <item name="authenticatorColorAccent">#8c9eff</item>
+        <item name="authenticatorColorBackground">#a0c1bf</item>
+        <item name="authenticatorColorBackgroundOverlay">#2d3d3c</item>
+
+        <item name="authenticatorToolbarBackground">?attr/authenticatorColorPrimary</item>
+        <item name="authenticatorToolbarItems">@android:color/white</item>
+
+        <item name="authenticatorAuthToolbarVisibility">visible</item>
+
+        <item name="authenticatorAuthSliderTrackLight">#7b7d8b</item>
+        <item name="authenticatorAuthSliderTrackDark">#222741</item>
+        <item name="authenticatorAuthSliderThumbNormal">#8288a7</item>
+        <item name="authenticatorAuthSliderThumbPressed">#8c9eff</item>
+
+        <item name="authenticatorCirclePadHighlightColor">#8c9eff</item>
+        <item name="authenticatorCirclePadMarksColor">#2d3d3c</item>
+
+        <item name="authenticatorPinPadButtonOverlayColorSelector">@color/pinpad_button_text</item>
+        <item name="authenticatorPinPadButtonBackgroundDrawableSelector">@drawable/pinpad_button_bg</item>
+    </style>
+</resources>
