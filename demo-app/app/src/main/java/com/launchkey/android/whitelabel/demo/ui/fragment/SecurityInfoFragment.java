@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.launchkey.android.authenticator.sdk.error.BaseError;
+import com.launchkey.android.authenticator.sdk.security.SecurityFactor;
+import com.launchkey.android.authenticator.sdk.security.SecurityService;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.util.Utils;
-import com.launchkey.android.whitelabel.sdk.error.BaseError;
-import com.launchkey.android.whitelabel.sdk.security.SecurityFactor;
-import com.launchkey.android.whitelabel.sdk.security.SecurityService;
 
 import java.util.List;
 
@@ -91,12 +91,10 @@ public class SecurityInfoFragment extends BaseDemoFragment implements SecuritySe
                 return "PIN Code";
             case SecurityService.FACTOR_CIRCLE:
                 return "Circle Code";
-            case SecurityService.FACTOR_BLUETOOTH:
+            case SecurityService.FACTOR_PROXIMITY:
                 return "Bluetooth Devices";
             case SecurityService.FACTOR_GEOFENCING:
                 return "Geofencing";
-            case SecurityService.FACTOR_WEARABLES:
-                return "Wearable Devices";
             case SecurityService.FACTOR_FINGERPRINT:
                 return "Fingerprint";
             default:

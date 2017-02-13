@@ -4,11 +4,11 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
+import com.launchkey.android.authenticator.sdk.error.BaseError;
+import com.launchkey.android.authenticator.sdk.error.CommunicationError;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.util.Utils;
-import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
-import com.launchkey.android.whitelabel.sdk.error.BaseError;
-import com.launchkey.android.whitelabel.sdk.error.CommunicationError;
 
 /**
  * Created by armando on 7/20/16.
@@ -33,14 +33,14 @@ public class CustomUnlinkFragment extends BaseDemoFragment {
 
         Utils.show(mUnlinkingDialog);
 
-        getWhiteLabelManager().unlink(new WhiteLabelManager.UnlinkListener() {
+        getAuthenticatorManager().unlinkCurrentDevice(new SimpleOperationCallback() {
 
             @Override
-            public void onUnlink(boolean success, BaseError error) {
+            public void onResult(boolean successful, BaseError error, Object o) {
 
                 Utils.dismiss(mUnlinkingDialog);
 
-                if (success) {
+                if (successful) {
                     if (getActivity() != null && !getActivity().isFinishing()) {
                         getActivity().finish();
                     }

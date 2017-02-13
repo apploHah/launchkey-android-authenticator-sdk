@@ -11,11 +11,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.launchkey.android.authenticator.sdk.otp.Otp;
+import com.launchkey.android.authenticator.sdk.otp.OtpCenter;
+import com.launchkey.android.authenticator.sdk.otp.OtpList;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.ui.adapter.DemoTotpsAdapter;
-import com.launchkey.android.whitelabel.sdk.otp.Otp;
-import com.launchkey.android.whitelabel.sdk.otp.OtpCenter;
-import com.launchkey.android.whitelabel.sdk.otp.OtpList;
 
 import java.util.Calendar;
 

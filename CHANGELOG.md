@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+v3.0.1
+------
+
+* The White Label SDK is now the Authenticator SDK
+ - `WhiteLabelConfig` now `AuthenticatorConfig`
+ - `WhiteLabelManager` now `AuthenticatorManager`
+* Tweaked UI
+* Defined better managers: `AuthenticatorManager`, `DeviceManager`, `SessionManager`, `AuthRequestManager`
+* Added event propagation via each manager
+* Allowed theming support via XML themes
+* Performance overhaul
+* Improved definition of errors for better handling
+
+Reference docs for more changes between v2.x and v3.
+
 v2.3.2
 ------
 * Added

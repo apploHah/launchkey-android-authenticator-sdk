@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="demo_primaryTextIcons">#FFFFFF</color>
+    <color name="demo_primaryTextIcons">#613d29</color>
     <color name="demo_primary">#009688</color>
     <color name="demo_primaryDark">#00796B</color>
     <color name="demo_accent">#FF4081</color>

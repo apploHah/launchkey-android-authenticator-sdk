@@ -1,2 +1,0 @@
-configurations.create("default")
-artifacts.add("default", file('lk-wl-sdk.aar'))

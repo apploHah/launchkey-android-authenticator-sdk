@@ -6,8 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
+import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.whitelabel.demo.R;
-import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
 
 /**
  * Created by armando on 7/8/16.
@@ -64,23 +65,9 @@ public class GenericFragmentDemoActivity extends BaseDemoActivity {
                     .commit();
         }
 
-        getWhiteLabelManager().addAccountStateListener(new WhiteLabelManager.AccountStateListener() {
+        getAuthenticatorManager().registerForEvents(new DeviceUnlinkedEventCallback() {
             @Override
-            public void onRequestUpdate(boolean b) {}
-
-            @Override
-            public void onAuthenticationSuccess(boolean b) {
-                finish();
-            }
-
-            @Override
-            public void onAuthenticationFailure() {}
-
-            @Override
-            public void onLogout() {}
-
-            @Override
-            public void onUnlink() {
+            public void onEventResult(boolean b, BaseError baseError, Object o) {
                 finish();
             }
         });

@@ -6,15 +6,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.launchkey.android.authenticator.sdk.ui.fragment.CodesFragment;
 import com.launchkey.android.whitelabel.demo.R;
-import com.launchkey.android.whitelabel.sdk.ui.fragment.TotpsFragment;
 
 /**
  * Created by armando on 8/17/16.
  */
 public class OtpsActivity extends BaseDemoActivity {
 
-    private TotpsFragment mFragment;
+    private CodesFragment mFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class OtpsActivity extends BaseDemoActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.demo_activity_otps_toolbar);
         setSupportActionBar(toolbar);
 
-        mFragment = (TotpsFragment) getSupportFragmentManager()
+        mFragment = (CodesFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.demo_activity_otps_fragment);
     }
 

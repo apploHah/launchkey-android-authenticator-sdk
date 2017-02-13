@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/demo_activity_otps_fragment"
-        android:name="com.launchkey.android.whitelabel.sdk.ui.fragment.TotpsFragment"
+        android:name="com.launchkey.android.authenticator.sdk.ui.fragment.CodesFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="100"

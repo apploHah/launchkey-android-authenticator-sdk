@@ -9,39 +9,37 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
+import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.device.Device;
+import com.launchkey.android.authenticator.sdk.device.DeviceManager;
+import com.launchkey.android.authenticator.sdk.error.BaseError;
+import com.launchkey.android.authenticator.sdk.ui.fragment.DevicesFragment;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.app.DemoApplication;
 import com.launchkey.android.whitelabel.demo.ui.adapter.DemoFeatureAdapter;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomAuthorizationsFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomAuthorizationsFragment2;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomDevicesFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomDevicesFragment2;
+import com.launchkey.android.whitelabel.demo.ui.fragment.CustomDevicesFragment3;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLinkingFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogoutFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogsFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogsFragment2;
+import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogoutFragment2;
+import com.launchkey.android.whitelabel.demo.ui.fragment.CustomSessionsFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomTotpsFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomUnlinkFragment;
+import com.launchkey.android.whitelabel.demo.ui.fragment.CustomUnlinkFragment2;
 import com.launchkey.android.whitelabel.demo.ui.fragment.SecurityInfoFragment;
-import com.launchkey.android.whitelabel.demo.util.Utils;
-import com.launchkey.android.whitelabel.sdk.WhiteLabelManager;
-import com.launchkey.android.whitelabel.sdk.error.BaseError;
-import com.launchkey.android.whitelabel.sdk.ui.AuthRequestFragment;
-import com.launchkey.android.whitelabel.sdk.ui.fragment.AuthorizationsFragment;
-import com.launchkey.android.whitelabel.sdk.ui.fragment.DevicesFragment;
-import com.launchkey.android.whitelabel.sdk.ui.fragment.LogsFragment;
+
+import java.util.Locale;
 
 /**
  * Created by armando on 7/8/16.
  */
-public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelManager.SessionListener, WhiteLabelManager.AccountStateListener2, AdapterView.OnItemClickListener {
+public class ListDemoActivity extends BaseDemoActivity implements AdapterView.OnItemClickListener {
 
     public static final String EXTRA_SHOW_REQUEST = "extraShowRequest";
 
     private static final String ERROR_DEVICE_UNLINKED = "Device is unlinked";
     private static final String ERROR_DEVICE_LINKED = "Device is already linked";
 
-    private static final int[] FEATURES_RES = new int[] {
+    private static final int[] FEATURES_RES_OLD = new int[] {
             R.string.demo_activity_list_feature_link_default_manual,
             R.string.demo_activity_list_feature_link_default_scanner,
             R.string.demo_activity_list_feature_link_custom,
@@ -66,19 +64,39 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
             R.string.demo_activity_list_feature_totps_custom
     };
 
+    private static final int[] FEATURES_RES = new int[] {
+            R.string.demo_activity_list_feature_link_default_manual,
+            R.string.demo_activity_list_feature_link_default_scanner,
+            R.string.demo_activity_list_feature_link_custom,
+            R.string.demo_activity_list_feature_security,
+            R.string.demo_activity_list_feature_securityinfo,
+            R.string.demo_activity_list_feature_requests_xml,
+            R.string.demo_activity_list_feature_logout_custom2,
+            R.string.demo_activity_list_feature_unlink_custom2,
+            R.string.demo_activity_list_feature_sessions_custom,
+            R.string.demo_activity_list_feature_devices_default,
+            R.string.demo_activity_list_feature_devices_custom3,
+            R.string.demo_activity_list_feature_totps_default,
+            R.string.demo_activity_list_feature_totps_custom
+    };
+
     private ListView mList;
     private DemoFeatureAdapter mAdapter;
+    private AuthenticatorManager mAuthenticatorManager;
+    private DeviceLinkedEventCallback mDeviceLinkedCallback;
+    private DeviceUnlinkedEventCallback mDeviceUnlinkedCallback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_activity_list);
 
+        mAuthenticatorManager = AuthenticatorManager.getInstance();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.list_toolbar);
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-            updateToolbarTitle();
         }
 
         mAdapter = new DemoFeatureAdapter(this, FEATURES_RES);
@@ -86,6 +104,20 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
         mList = (ListView) findViewById(R.id.list_listview);
         mList.setAdapter(mAdapter);
         mList.setOnItemClickListener(this);
+
+        mDeviceLinkedCallback = new DeviceLinkedEventCallback() {
+            @Override
+            public void onEventResult(boolean successful, BaseError error, Device device) {
+                updateUi();
+            }
+        };
+
+        mDeviceUnlinkedCallback = new DeviceUnlinkedEventCallback() {
+            @Override
+            public void onEventResult(boolean successful, BaseError error, Object o) {
+                updateUi();
+            }
+        };
 
         processIntent(getIntent());
     }
@@ -116,49 +148,50 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
         return -1;
     }
 
-    private void updateToolbarTitle() {
-        if (getSupportActionBar() != null) {
-            String status = "Device " + (getWhiteLabelManager().isDeviceLinked() ? "Linked" : "Unlinked");
-            getSupportActionBar().setTitle(getString(R.string.demo_activity_list_title_format, status));
-        }
-    }
+    private void updateUi() {
 
-    //REGISTER AND UNREGISTER EVENT LISTENERS
+        boolean assumingNotVisible = getSupportActionBar() == null;
+
+        if (assumingNotVisible) {
+            return;
+        }
+
+        boolean nowLinked = mAuthenticatorManager.isDeviceLinked();
+
+        Device device = DeviceManager.getInstance(this).getCurrentDevice();
+        final String message = nowLinked ? String.format(Locale.getDefault(), "Linked as \"%s\"", device.getName()) : "Device Unlinked";
+
+        getSupportActionBar().setTitle(getString(R.string.demo_activity_list_title_format, message));
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateToolbarTitle();
-        getWhiteLabelManager().addAccountStateListener(this);
-        getWhiteLabelManager().addStatusListener(this);
-        getWhiteLabelManager().checkForActiveSessions();
-
+        updateUi();
         DemoApplication.cancelRequestNotification();
+        mAuthenticatorManager.registerForEvents(mDeviceLinkedCallback, mDeviceUnlinkedCallback);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        getWhiteLabelManager().removeAccountStateListener(this);
-        getWhiteLabelManager().removeStatusListener(this);
+        mAuthenticatorManager.unregisterForEvents(mDeviceLinkedCallback, mDeviceUnlinkedCallback);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int featureStringId = mAdapter.getItem(position);
 
-        boolean linked = getWhiteLabelManager().isDeviceLinked();
+        boolean linked = mAuthenticatorManager.isDeviceLinked();
 
-        String fragmentClassName = null;
+        Class fragmentClassName = null;
 
         switch (featureStringId) {
-
             case R.string.demo_activity_list_feature_link_default_manual:
-
                 if (linked) {
                     showError(ERROR_DEVICE_LINKED);
                 } else {
-                    getWhiteLabelManager().displayLinkingUi(this, WhiteLabelManager.LINKING_METHOD_MANUAL);
+                    mAuthenticatorManager.startLinkingActivity(this, AuthenticatorManager.LINKING_METHOD_MANUAL);
                 }
                 break;
 
@@ -166,7 +199,116 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                 if (linked) {
                     showError(ERROR_DEVICE_LINKED);
                 } else {
-                    getWhiteLabelManager().displayLinkingUi(this, WhiteLabelManager.LINKING_METHOD_SCAN);
+                    mAuthenticatorManager.startLinkingActivity(this, AuthenticatorManager.LINKING_METHOD_SCAN);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_link_custom:
+                if (linked) {
+                    showError(ERROR_DEVICE_LINKED);
+                } else {
+                    fragmentClassName = CustomLinkingFragment.class;
+            }
+                break;
+
+            case R.string.demo_activity_list_feature_security:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    mAuthenticatorManager.startSecurityActivity(this);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_securityinfo:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = SecurityInfoFragment.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_requests_xml:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    Intent authRequestActivity = new Intent(this, AuthRequestActivity.class);
+                    startActivity(authRequestActivity);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_logout_custom2:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = CustomLogoutFragment2.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_unlink_custom2:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = CustomUnlinkFragment2.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_sessions_custom:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = CustomSessionsFragment.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_devices_default:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = DevicesFragment.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_devices_custom3:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = CustomDevicesFragment3.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_totps_default:
+
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    Intent otpsActivity = new Intent(this, OtpsActivity.class);
+                    startActivity(otpsActivity);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_totps_custom:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    fragmentClassName = CustomTotpsFragment.class;
+                }
+                break;
+
+            /*
+            case R.string.demo_activity_list_feature_link_default_manual:
+
+                if (linked) {
+                    showError(ERROR_DEVICE_LINKED);
+                } else {
+                    getAuthenticatorManager().displayLinkingUi(this, AuthenticatorManager.LINKING_METHOD_MANUAL);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_link_default_scanner:
+                if (linked) {
+                    showError(ERROR_DEVICE_LINKED);
+                } else {
+                    getAuthenticatorManager().displayLinkingUi(this, AuthenticatorManager.LINKING_METHOD_SCAN);
                 }
                 break;
 
@@ -199,7 +341,7 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                 if (!linked) {
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
-                    getWhiteLabelManager().logOut(this);
+                    getAuthenticatorManager().logOut(this);
                 }
                 break;
 
@@ -215,7 +357,7 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                 if (!linked) {
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
-                    getWhiteLabelManager().unlink(this);
+                    getAuthenticatorManager().unlink(this);
                 }
                 break;
 
@@ -231,7 +373,7 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                 if (!linked) {
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
-                    getWhiteLabelManager().displaySecurity(this);
+                    getAuthenticatorManager().displaySecurity(this);
                 }
                 break;
 
@@ -332,6 +474,7 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
                     fragmentClassName = SecurityInfoFragment.class.getCanonicalName();
                 }
                 break;
+                */
         }
 
         if (fragmentClassName != null) {
@@ -339,12 +482,13 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
             //The full class name of a Fragment will be passed to the activity
             // so it's automatically instantiated by name and placed in a container.
             Intent fragmentActivity = new Intent(this, GenericFragmentDemoActivity.class);
-            fragmentActivity.putExtra(GenericFragmentDemoActivity.EXTRA_FRAGMENT_CLASS, fragmentClassName);
+            fragmentActivity.putExtra(GenericFragmentDemoActivity.EXTRA_FRAGMENT_CLASS, fragmentClassName.getCanonicalName());
             fragmentActivity.putExtra(GenericFragmentDemoActivity.EXTRA_TITLE, getString(featureStringId));
 
             startActivity(fragmentActivity);
         }
     }
+    /*
 
     //SESSION-BASED EVENT(S)
 
@@ -370,13 +514,13 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
 
     @Override
     public void onAuthenticationFailure(BaseError error) {
-        updateToolbarTitle();
+        updateUi();
         showError("Authentication failure: " + Utils.getMessageForBaseError(error));
     }
 
     @Override
     public void onUnlink() {
-        updateToolbarTitle();
+        updateUi();
         showMessage("Device unlinked");
     }
 
@@ -384,6 +528,8 @@ public class ListDemoActivity extends BaseDemoActivity implements WhiteLabelMana
     public void onLogout() {
         showMessage("Logged out of active sessions");
     }
+
+    */
 
     private void showError(int messageRes) {
         showError(getString(messageRes));
