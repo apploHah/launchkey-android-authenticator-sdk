@@ -16,6 +16,54 @@ v3.0.1
 
 Reference docs for more changes between v2.x and v3.
 
+v2.3.2
+------
+* Added
+ * New implementation `WhiteLabelManager.AccountStateListener2` that will take over the now deprecated `WhiteLabelManager.AccountStateListener`. Continue calling `WhiteLabelManager.add/removeAccountStateListener` to register and unregister for those events. The difference with the initial version is that `AccountStateListener2.onAuthenticationFailure(…)` now returns a `BaseError` object to deal with errors generated when responding to an Auth Request.
+ * `ExpiredAuthRequestError` will now be returned in `AccountStateListener2.onAuthenticationFailure(…)` to allow the integrator to react to that event and notify the end user of the expired/invalid Auth Request with a custom user interface.
+ * General improvements.
+
+* Removed
+ * Toast served by the WL SDK notifying the end user of an expired/old pending Auth Request immediately after responding to one. (Reference the second bullet point in “Added” section above)
+
+* Fixed
+ * Fixed Javadocs entries for various methods in `WhiteLabelManager`.
+
+v2.3.1
+------
+* Added
+ * Support for push notifications sent to the White Label device that is unlinked remotely by notifying the usual `onUnlink()` callback.
+ * General improvements.
+
+* Fixed
+ * Issue #15: `AuthRequestFragment` will now have the SDK call `onUnlink()` when the device is unlinked by an API response when checking for a pending Auth Request.
+
+v2.3.0
+------
+
+* Added
+ - Improvements (issue #7) to the generation of the Key Pair when linking the device. `WhiteLabelConfig.Builder` now accepts a custom size for the key pair, and the key is generated when `WhiteLabelManager` is initialized with such `WhiteLabelConfig` object in the background instead of when attempting to link.
+ - Improvements to the Auth Request UI and verbiage when more factors were required by the Application.
+ - Improvements to the linking code and device name validators.
+ - Updates to Javadocs with changes in this v2.3.0 release.
+
+* Fixed
+ - Issue #10: `AuthRequestFragment` now automatically continues with the authentication once the user sets more factors if the Auth Request requires it.
+
+v2.2.1
+------
+
+* Added
+ - Improvements to the handling of remote unlinking of the device in use.
+ - Improvements to how the current device is unlinked when done so in the list of linked devices.
+ - Improvements to `AuthRequestFragment`'s included toolbar; now hidden by default and changed via `AuthRequestFragment.setToolbarVisible(boolean)`.
+
+* Fixed
+ - Issue #6: Crash due to lack of a null-check in `AuthRequestFragment`.
+
+* Deprecated
+ - `WhiteLabelManager.hasActiveSessions()` in favor of listeners when the status is updated `WhiteLabelManager.add/removeStatusListener(WhiteLabelManager.SessionListener)`.
+
 v2.2.0
 ------
 
