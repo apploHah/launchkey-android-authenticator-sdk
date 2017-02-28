@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+v3.0.2
+------
+
+* Added `UnexpectedCertificateError` as an error type returned when SSL Pinning is working on an unreliable network.
+* Fixed issue where the device was not registering for Push Notifications immediately after linking a device until the next time the application was recreated.
+* Fixed issue with `AuthRequestFragment` not reacting properly for failing responses to pending Auth Requests.
+* Fixed issue with the fingerprint scanner on select Samsung devices due to an OS firmware bug.
+* Improved logic and navigation when a device is automatically unlinked upon 10 failed attempts when verifying knowledge factors.
+* Improved Javadocs.
+
 v3.0.1
 ------
 
