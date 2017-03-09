@@ -19,6 +19,7 @@ import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.ui.activity.ListDemoActivity;
+import com.launchkey.android.whitelabel.demo.util.Utils;
 
 import java.util.Locale;
 
@@ -66,20 +67,17 @@ public class DemoApplication extends AuthenticatorApplication {
                 }
         );
 
-        if (manager.isDeviceLinked()) {
+        final AuthRequestManager arm = AuthRequestManager.getInstance(this);
+        arm.registerForEvents(new GetAuthRequestEventCallback() {
 
-            final AuthRequestManager arm = AuthRequestManager.getInstance(this);
-            arm.registerForEvents(new GetAuthRequestEventCallback() {
-
-                @Override
-                public void onEventResult(boolean successful, BaseError error, AuthRequest authRequest) {
-
-                    if (authRequest != null) {
-                        notifyOfRequest();
-                    }
+            @Override
+            public void onEventResult(boolean successful, BaseError error, AuthRequest authRequest) {
+                Log.i(TAG, "Auth Request Check s=" + successful + " err=" + Utils.getMessageForBaseError(error) + " ar=" + authRequest);
+                if (authRequest != null) {
+                    notifyOfRequest();
                 }
-            });
-        }
+            }
+        });
     }
 
     private void notifyOfRequest() {

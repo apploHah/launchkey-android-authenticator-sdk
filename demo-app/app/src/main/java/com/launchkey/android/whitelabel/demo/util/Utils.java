@@ -63,7 +63,7 @@ public final class Utils {
         } else if (e instanceof ApiError) {
             m = getMessageForApiError((ApiError) e);
         } else if (e instanceof UnexpectedCertificateError) {
-            m = "Your Internet traffic could be monitored. Make sure you are in a reliable network.";
+            m = "Your Internet traffic could be monitored. Make sure you are on a reliable network.";
         } else {
             m = "Unknown error=" + e.getMessage();
         }
@@ -79,7 +79,7 @@ public final class Utils {
 
         switch (e.getCodeInt()) {
             case ApiError.DEVICE_NAME_ALREADY_USED:
-                return "Device name already in used. Try a different one or check the first checkbox before trying.";
+                return "Device name already in use. Try a different one or check the first checkbox before trying.";
             case ApiError.INCORRECT_SDK_KEY:
                 return "Mobile SDK key incorrect. Please check with your service provider.";
             case ApiError.INVALID_LINKING_CODE:
