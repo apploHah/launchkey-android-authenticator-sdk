@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+v3.0.3
+------
+
+* Fixed issue with passive factor checking when there were multiple instances of `AuthRequestFragment`.
+* Improved flow with `AuthRequestFragment` when a device is unlinked due to 10 failed attempts at a knowledge factor verification.
+* Improved background Bluetooth scanning for devices added as proximity factors.
+* Improved image resources for when passive factors are being checked in `AuthRequestFragment` on devices with high resolution displays.
+
 v3.0.2
 ------
 
