@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+v3.0.4
+------
+
+* Added option in `AuthenticatorConfig.Builder` to set a configurable Activation Delay in seconds for passive factors.
+* Fixed issue with checks around Service-set geo-fences depending on the dynamic policy sent by the Service.
+* Improved Javadocs.
+
 v3.0.3
 ------
 
