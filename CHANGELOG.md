@@ -1,6 +1,17 @@
 Change Log
 ==========
 
+v3.1.0
+------
+
+* Deprecated support for Codes (aka Tokens, T-OTPs).
+* Fixed issue with `SecurityFragment` not calling the other Security Views when embedding fragment in custom Activities.
+* Fixed issue with `AuthRequestManager` not clearing cache after detecting a pending Auth Request is already expired when responding.
+* Fixed issue with `AuthenticatorManager` not returning correct values for `successful` and `error` when calling `AuthenticatorManager.linkDevice(...)` while listening to global event via `DeviceLinkedEventCallback`. Local, one-time callback `SimpleOperationCallback` returned proper data when calling the aforementioned method.
+* Removed `AlertDialog` shown on error in `AuthRequestFragment` to have the parent `Activity` handle error objects instead.
+* Prevented `SecurityFragment` from tinting/theming text and icons in `Toolbar` instances part of a parent `Activity` when embedding `SecurityFragment`.
+* Updated Javadocs.
+
 v3.0.4
 ------
 
