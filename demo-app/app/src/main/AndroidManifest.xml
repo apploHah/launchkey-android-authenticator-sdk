@@ -47,6 +47,12 @@
             />
 
         <activity
+            android:name=".ui.activity.CustomSecurityActivity"
+            android:label="@string/demo_activity_list_feature_security_custom"
+            android:theme="@style/DemoAppTheme"
+            />
+
+        <activity
             android:name=".ui.activity.OtpsActivity"
             android:label="@string/demo_activity_otps_title"
             />

@@ -4,13 +4,13 @@
     <style name="DemoAppTheme" parent="AuthenticatorTheme">
 
         <item name="authenticatorColorPrimary">#00BCD4</item>
-        <item name="authenticatorColorPrimaryDark">#00838F</item>
+        <item name="authenticatorColorPrimaryDark">#2d3d3c</item>
         <item name="authenticatorColorAccent">#8c9eff</item>
         <item name="authenticatorColorBackground">#a0c1bf</item>
         <item name="authenticatorColorBackgroundOverlay">#2d3d3c</item>
 
-        <item name="authenticatorToolbarBackground">?attr/authenticatorColorPrimary</item>
-        <item name="authenticatorToolbarItems">@android:color/white</item>
+        <item name="authenticatorToolbarBackground">#445553</item>
+        <item name="authenticatorToolbarItems">#9fca48</item>
 
         <item name="authenticatorAuthToolbarVisibility">visible</item>
 

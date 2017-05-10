@@ -39,36 +39,12 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
     private static final String ERROR_DEVICE_UNLINKED = "Device is unlinked";
     private static final String ERROR_DEVICE_LINKED = "Device is already linked";
 
-    private static final int[] FEATURES_RES_OLD = new int[] {
-            R.string.demo_activity_list_feature_link_default_manual,
-            R.string.demo_activity_list_feature_link_default_scanner,
-            R.string.demo_activity_list_feature_link_custom,
-            R.string.demo_activity_list_feature_security,
-            R.string.demo_activity_list_feature_securityinfo,
-            R.string.demo_activity_list_feature_requests_runtime,
-            R.string.demo_activity_list_feature_requests_xml,
-            R.string.demo_activity_list_feature_logout_default,
-            R.string.demo_activity_list_feature_logout_custom,
-            R.string.demo_activity_list_feature_unlink_default,
-            R.string.demo_activity_list_feature_unlink_custom,
-            R.string.demo_activity_list_feature_authorizations_default,
-            R.string.demo_activity_list_feature_authorizations_custom,
-            R.string.demo_activity_list_feature_authorizations_custom2,
-            R.string.demo_activity_list_feature_devices_default,
-            R.string.demo_activity_list_feature_devices_custom,
-            R.string.demo_activity_list_feature_devices_custom2,
-            R.string.demo_activity_list_feature_logs_default,
-            R.string.demo_activity_list_feature_logs_custom,
-            R.string.demo_activity_list_feature_logs_custom2,
-            R.string.demo_activity_list_feature_totps_default,
-            R.string.demo_activity_list_feature_totps_custom
-    };
-
     private static final int[] FEATURES_RES = new int[] {
             R.string.demo_activity_list_feature_link_default_manual,
             R.string.demo_activity_list_feature_link_default_scanner,
             R.string.demo_activity_list_feature_link_custom,
             R.string.demo_activity_list_feature_security,
+            R.string.demo_activity_list_feature_security_custom,
             R.string.demo_activity_list_feature_securityinfo,
             R.string.demo_activity_list_feature_requests_xml,
             R.string.demo_activity_list_feature_logout_custom2,
@@ -216,6 +192,15 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
                     mAuthenticatorManager.startSecurityActivity(this);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_security_custom:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+                    Intent customSecurityActivity = new Intent(this, CustomSecurityActivity.class);
+                    startActivity(customSecurityActivity);
                 }
                 break;
 
