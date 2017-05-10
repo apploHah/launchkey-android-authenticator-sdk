@@ -1,6 +1,42 @@
 Change Log
 ==========
 
+v3.1.0
+------
+
+* Deprecated support for Codes (aka Tokens, T-OTPs).
+* Fixed issue with `SecurityFragment` not calling the other Security Views when embedding fragment in custom Activities.
+* Fixed issue with `AuthRequestManager` not clearing cache after detecting a pending Auth Request is already expired when responding.
+* Fixed issue with `AuthenticatorManager` not returning correct values for `successful` and `error` when calling `AuthenticatorManager.linkDevice(...)` while listening to global event via `DeviceLinkedEventCallback`. Local, one-time callback `SimpleOperationCallback` returned proper data when calling the aforementioned method.
+* Removed `AlertDialog` shown on error in `AuthRequestFragment` to have the parent `Activity` handle error objects instead.
+* Prevented `SecurityFragment` from tinting/theming text and icons in `Toolbar` instances part of a parent `Activity` when embedding `SecurityFragment`.
+* Updated Javadocs.
+
+v3.0.4
+------
+
+* Added option in `AuthenticatorConfig.Builder` to set a configurable Activation Delay in seconds for passive factors.
+* Fixed issue with checks around Service-set geo-fences depending on the dynamic policy sent by the Service.
+* Improved Javadocs.
+
+v3.0.3
+------
+
+* Fixed issue with passive factor checking when there were multiple instances of `AuthRequestFragment`.
+* Improved flow with `AuthRequestFragment` when a device is unlinked due to 10 failed attempts at a knowledge factor verification.
+* Improved background Bluetooth scanning for devices added as proximity factors.
+* Improved image resources for when passive factors are being checked in `AuthRequestFragment` on devices with high resolution displays.
+
+v3.0.2
+------
+
+* Added `UnexpectedCertificateError` as an error type returned when SSL Pinning is working on an unreliable network.
+* Fixed issue where the device was not registering for Push Notifications immediately after linking a device until the next time the application was recreated.
+* Fixed issue with `AuthRequestFragment` not reacting properly for failing responses to pending Auth Requests.
+* Fixed issue with the fingerprint scanner on select Samsung devices due to an OS firmware bug.
+* Improved logic and navigation when a device is automatically unlinked upon 10 failed attempts when verifying knowledge factors.
+* Improved Javadocs.
+
 v3.0.1
 ------
 
