@@ -24,6 +24,7 @@
     <string name="demo_activity_list_feature_logout_custom">Log Out (Custom UI)</string>
     <string name="demo_activity_list_feature_logout_custom2">Log Out 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_security">Security</string>
+    <string name="demo_activity_list_feature_security_custom">Security (Wrapping Activity)</string>
     <string name="demo_activity_list_feature_authorizations_default">List of Authorizations (Default UI)</string>
     <string name="demo_activity_list_feature_authorizations_custom">List of Authorizations (Custom UI)</string>
     <string name="demo_activity_list_feature_authorizations_custom2">List of Authorizations 2 (Custom UI)</string>

@@ -13,7 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
-import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
+import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.whitelabel.demo.R;
 import com.launchkey.android.whitelabel.demo.util.Utils;
@@ -28,6 +29,9 @@ public class CustomLinkingFragment extends BaseDemoFragment {
     private CheckBox mProvideName;
     private CheckBox mOverrideNameIfUsed;
     private ProgressDialog mLinkingDialog;
+
+    private AuthenticatorManager mAuthenticatorManager;
+    private DeviceLinkedEventCallback mOnDeviceLinked;
 
     @Nullable
     @Override
@@ -66,6 +70,38 @@ public class CustomLinkingFragment extends BaseDemoFragment {
         return root;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAuthenticatorManager = AuthenticatorManager.getInstance();
+        mOnDeviceLinked = new DeviceLinkedEventCallback() {
+
+            @Override
+            public void onEventResult(boolean successful, BaseError error, Device device) {
+
+                mLinkingDialog.dismiss();
+
+                if (successful) {
+                    Utils.finish(CustomLinkingFragment.this);
+                } else {
+                    showAlert("Error", Utils.getMessageForBaseError(error));
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAuthenticatorManager.registerForEvents(mOnDeviceLinked);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mAuthenticatorManager.unregisterForEvents(mOnDeviceLinked);
+    }
+
     private void onLink() {
         String linkingCode = mCode.getText().toString().trim();
         String customDeviceName = mName.getText().toString().trim();
@@ -86,22 +122,7 @@ public class CustomLinkingFragment extends BaseDemoFragment {
         final String deviceName = mProvideName.isChecked() ? customDeviceName : null;
         final boolean overrideNameIfUsed = mOverrideNameIfUsed.isChecked();
 
-        AuthenticatorManager
-                .getInstance()
-                .linkDevice(linkingCode, deviceName, overrideNameIfUsed, new SimpleOperationCallback() {
-
-                    @Override
-                    public void onResult(boolean successful, BaseError error, Object extra) {
-
-                        mLinkingDialog.dismiss();
-
-                        if (successful) {
-                            Utils.finish(CustomLinkingFragment.this);
-                        } else {
-                            showAlert("Error", Utils.getMessageForBaseError(error));
-                        }
-                    }
-                });
+        mAuthenticatorManager.linkDevice(linkingCode, deviceName, overrideNameIfUsed, null);
     }
 
     private void showAlert(String title, String message) {
