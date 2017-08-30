@@ -6,4 +6,5 @@
     <color name="demo_accent">#FF4081</color>
     <color name="demo_backgrounds">#dcdcdc</color>
     <color name="demo_color_gray_dark">#222222</color>
+    <color name="demo_color_negative">#9e2938</color>
 </resources>

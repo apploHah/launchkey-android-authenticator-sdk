@@ -36,8 +36,6 @@
     <string name="demo_activity_list_feature_logs_default">List of Logs (Default UI)</string>
     <string name="demo_activity_list_feature_logs_custom">List of Logs (Custom UI)</string>
     <string name="demo_activity_list_feature_logs_custom2">List of Logs 2 (Custom UI)</string>
-    <string name="demo_activity_list_feature_totps_default">OTPs (Default UI)</string>
-    <string name="demo_activity_list_feature_totps_custom">OTPs (Custom UI)</string>
     <string name="demo_activity_list_feature_securityinfo">Security Information</string>
 
     <string name="notif_request_message">There is a new request.</string>

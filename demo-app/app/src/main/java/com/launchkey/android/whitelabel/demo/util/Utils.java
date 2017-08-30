@@ -79,7 +79,7 @@ public final class Utils {
 
         switch (e.getCodeInt()) {
             case ApiError.DEVICE_NAME_ALREADY_USED:
-                return "Device name already in use. Try a different one or check the first checkbox before trying.";
+                return "The device name you chose is already assigned to another device associated with your account.  Please choose an alternative name or unlink the conflicting device, and then try again.";
             case ApiError.INCORRECT_SDK_KEY:
                 return "Mobile SDK key incorrect. Please check with your service provider.";
             case ApiError.INVALID_LINKING_CODE:

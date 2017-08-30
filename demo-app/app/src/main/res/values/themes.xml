@@ -9,6 +9,10 @@
         <item name="authenticatorColorBackground">#a0c1bf</item>
         <item name="authenticatorColorBackgroundOverlay">#2d3d3c</item>
 
+        <item name="authenticatorColorButtonText">@android:color/white</item>
+        <item name="authenticatorColorNegativeWidgetText">@android:color/white</item>
+        <item name="authenticatorColorNegativeWidgetBackground">@color/demo_color_negative</item>
+
         <item name="authenticatorToolbarBackground">#445553</item>
         <item name="authenticatorToolbarItems">#9fca48</item>
 

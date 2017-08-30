@@ -23,7 +23,6 @@ import com.launchkey.android.whitelabel.demo.ui.fragment.CustomDevicesFragment3;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLinkingFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogoutFragment2;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomSessionsFragment;
-import com.launchkey.android.whitelabel.demo.ui.fragment.CustomTotpsFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomUnlinkFragment2;
 import com.launchkey.android.whitelabel.demo.ui.fragment.SecurityInfoFragment;
 
@@ -51,9 +50,7 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
             R.string.demo_activity_list_feature_unlink_custom2,
             R.string.demo_activity_list_feature_sessions_custom,
             R.string.demo_activity_list_feature_devices_default,
-            R.string.demo_activity_list_feature_devices_custom3,
-            R.string.demo_activity_list_feature_totps_default,
-            R.string.demo_activity_list_feature_totps_custom
+            R.string.demo_activity_list_feature_devices_custom3
     };
 
     private ListView mList;
@@ -258,24 +255,6 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
                     fragmentClassName = CustomDevicesFragment3.class;
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_totps_default:
-
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    Intent otpsActivity = new Intent(this, OtpsActivity.class);
-                    startActivity(otpsActivity);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_totps_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomTotpsFragment.class;
                 }
                 break;
 
