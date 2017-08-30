@@ -1,6 +1,26 @@
 Change Log
 ==========
 
+v4.0.0
+------
+* Updated
+  * Overall messaging
+  * Networking functionality
+  * Javadocs
+
+* Added
+  * Added `DeviceKeyPairGeneratedEventCallback` as a way to know when the Authenticator SDK has finished generating the key used to link a new device.
+  * Added `updatePushNotificationToken(...)` to `AuthenticatorManager` in order to notify the Authenticator SDK when the device token for Push Notifications changes.
+  * Added `onPushNotification(...)` to `AuthenticatorManager` in order to handle incoming push notifications received by the implementing application.
+  * Added new style properties `authenticatorColorNegativeWidgetText` and `authenticatorColorNegativeWidgetBackground` to override the default color of widgets (and text if it has any) related to negative actions (Unlinking in default Devices view, removing a factor, etc.).
+
+* Removed
+  * Internal classes to receive push notifications from GCM. Note: Must be handled by the implementing app and sent back to the Auth SDK via `updatePushNotificationToken(...)` and `onPushNotification(...)` mentioned above.
+  * `AuthenticatorApplication` class. It is not needed anymore and if inherited, subclass the standard Android class `Application` instead.
+  * T-OTPs/Codes.
+  * `endpoint(...)` method in `AuthenticatorConfig.Builder` to override the API endpoint. It is NOT an option anymore.
+  * `sslCert(...)` method in `AuthenticatorConfig.Builder` to set the SSL cert for overridden endpoints when `sslPinning(true)` was called along with a custom endpoint via `endpoint(...)` which has also been removed.
+
 v3.1.0
 ------
 
