@@ -1,5 +1,6 @@
 package com.launchkey.android.whitelabel.demo.app;
 
+import android.app.Application;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -7,9 +8,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
-import com.launchkey.android.authenticator.sdk.AuthenticatorApplication;
 import com.launchkey.android.authenticator.sdk.AuthenticatorConfig;
 import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
+import com.launchkey.android.authenticator.sdk.DeviceKeyPairGeneratedEventCallback;
 import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequest;
@@ -18,12 +19,13 @@ import com.launchkey.android.authenticator.sdk.auth.event.GetAuthRequestEventCal
 import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.whitelabel.demo.R;
+import com.launchkey.android.whitelabel.demo.push.PushRegIntentService;
 import com.launchkey.android.whitelabel.demo.ui.activity.ListDemoActivity;
 import com.launchkey.android.whitelabel.demo.util.Utils;
 
 import java.util.Locale;
 
-public class DemoApplication extends AuthenticatorApplication {
+public class DemoApplication extends Application {
 
     public static final String TAG = DemoApplication.class.getSimpleName();
 
@@ -33,7 +35,12 @@ public class DemoApplication extends AuthenticatorApplication {
 
     @Override
     public void onCreate() {
+
         initialize();
+
+        // Kick-start push registration service
+        startService(new Intent(this, PushRegIntentService.class));
+
         super.onCreate();
     }
 
@@ -44,8 +51,8 @@ public class DemoApplication extends AuthenticatorApplication {
 
         final AuthenticatorManager manager = AuthenticatorManager.getInstance();
 
-        final int geofencingDelaySeconds = 20 * 60;     //20 minutes
-        final int proximityDelaySeconds = 10 * 60;      //10 minutes
+        final int geofencingDelaySeconds = 0;
+        final int proximityDelaySeconds = 25;
 
         manager.initialize(
                         new AuthenticatorConfig.Builder(this, R.string.authenticator_sdk_key)
@@ -53,6 +60,7 @@ public class DemoApplication extends AuthenticatorApplication {
                                 .activationDelayProximity(proximityDelaySeconds)
                                 .keyPairSize(keyPairSizeBits)
                                 .theme(R.style.DemoAppTheme)
+                                //.customFont("fonts/ostrich-regular.ttf")
                                 .build());
 
         manager.registerForEvents(
@@ -68,6 +76,13 @@ public class DemoApplication extends AuthenticatorApplication {
                     @Override
                     public void onEventResult(boolean b, BaseError baseError, Object o) {
                         Log.i(TAG, String.format(Locale.getDefault(), "Unlink-event=%b error=%s", b, baseError));
+                    }
+                },
+
+                new DeviceKeyPairGeneratedEventCallback() {
+                    @Override
+                    public void onEventResult(boolean b, BaseError baseError, Object o) {
+                        Log.i(TAG, "Device key pair now generated.");
                     }
                 }
         );
