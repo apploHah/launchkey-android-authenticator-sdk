@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+v3.2.0
+------
+
+* Deprecated (Removed in the next major version)
+  * All internal classes to handle push notifications on behalf of the parent application under the `gcm` package.
+  * Deprecated class `AuthenticatorApplication`.
+  * Deprecated methods `endpoint(...)` and `sslCert(...)` in `AuthenticatorConfig.Builder`.
+
 v3.1.0
 ------
 
