@@ -68,7 +68,9 @@ public class DemoApplication extends Application {
                 new DeviceLinkedEventCallback() {
                     @Override
                     public void onEventResult(boolean b, BaseError baseError, Device device) {
-                        Log.i(TAG, String.format(Locale.getDefault(), "Link-event=%b Device-name=%s", b, device.getName()));
+
+                        final String deviceName = b ? device.getName() : null;
+                        Log.i(TAG, String.format(Locale.getDefault(), "Link-event=%b Device-name=%s", b, deviceName));
                     }
                 },
 
