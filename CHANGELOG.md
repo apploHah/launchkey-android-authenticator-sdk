@@ -1,6 +1,24 @@
 Change Log
 ==========
 
+v4.1.0
+------
+* Updated
+  * Overall messaging
+  * Javadocs
+  * Few dialogs to support keyboard's "done" action when an input is involved.
+  * Fingerprint scanner handler with improved support.
+
+* Added
+  * Support for OpenStreetMap (OSM) for Android when Google Maps dependencies are not found. Note: If using Google Maps, remember to provide a valid Google Maps key via `AndroidManifest.xml`. You may also be subject to Google's own terms of services when using their Google Maps service(s).
+  * Support for device-only Location Services when Google Play Services is not present. 
+
+* Fixed
+  * Issue with fingerprint sensor not working if `AuthRequestFragment` is shown at all times.
+  * Lack of support for TLS 1.2 on older versions of Android defaulting to 1.0 and 1.1.
+  * Bugs around permissions and map views.
+  * UI glitches.
+
 v4.0.0
 ------
 * Updated
