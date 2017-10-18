@@ -53,11 +53,6 @@
             android:theme="@style/DemoAppTheme"
             />
 
-        <activity
-            android:name=".ui.activity.OtpsActivity"
-            android:label="@string/demo_activity_otps_title"
-            />
-
         <!-- GCM-related receiver and service -->
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"

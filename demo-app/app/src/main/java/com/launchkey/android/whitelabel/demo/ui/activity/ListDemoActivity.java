@@ -132,7 +132,7 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
         boolean nowLinked = mAuthenticatorManager.isDeviceLinked();
 
         Device device = DeviceManager.getInstance(this).getCurrentDevice();
-        final String message = nowLinked ? String.format(Locale.getDefault(), "Linked as \"%s\"", device.getName()) : "Device Unlinked";
+        final String message = nowLinked ? String.format(Locale.getDefault(), "\"%s\"", device.getName()) : "Device Unlinked";
 
         getSupportActionBar().setTitle(getString(R.string.demo_activity_list_title_format, message));
     }
