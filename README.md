@@ -25,11 +25,11 @@ LaunchKey is an identity and access management platform. The Authenticator SDK e
 developers to quickly integrate the LaunchKey platform directly 
 in their existing Android applications.
 
-Developer documentation for using the LaunchKey API is found [here](https://docs.launchkey.com/developer/white-label/integrate-white-label-sdk-android-v3.html).
+Developer documentation for using the Authenticator SDK is found [here](https://docs.launchkey.com/authenticator-sdk/integrate-white-label-sdk-android-v3.html).
 
 #  <a name="links"></a>Links
 
-  Check our [documentation](https://docs.launchkey.com/developer/white-label/) for setting up
+  Check our [documentation](https://docs.launchkey.com/authenticator-sdk/before-you-begin.html) for setting up
   a LaunchKey Service and the official [Android Development website](https://d.android.com)
   for everything else regarding Android.
 
@@ -38,8 +38,6 @@ Developer documentation for using the LaunchKey API is found [here](https://docs
 ## Twitter
 
 Submit a question to the Twitter Handle [@LaunchKeyHelp](https://twitter.com/LaunchKeyHelp).
-
-## Support
 
 Browse FAQ's or submit a question to the LaunchKey support team for both
 technical and non-technical issues. Visit the LaunchKey Support website [here](https://launchkey.com/support).
