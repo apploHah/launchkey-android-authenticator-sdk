@@ -39,5 +39,7 @@ Developer documentation for using the Authenticator SDK is found [here](https://
 
 Submit a question to the Twitter Handle [@LaunchKeyHelp](https://twitter.com/LaunchKeyHelp).
 
+## FAQ's
+
 Browse FAQ's or submit a question to the LaunchKey support team for both
 technical and non-technical issues. Visit the LaunchKey Support website [here](https://launchkey.com/support).
