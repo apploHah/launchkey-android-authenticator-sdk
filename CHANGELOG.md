@@ -1,6 +1,27 @@
 Change Log
 ==========
 
+v4.2.0
+------
+* Updated
+  * Auth SDK to allow for use of concurrent knowledge factors (both PIN Code and Circle Code can be used concurrently)
+
+* Added
+  * `LocalAuthManager` to allow for Local Auth Requests
+	- Implementors can build a `Policy` object either by type (knowledge, inherence, and/or possession), or by count (required number of active factors) via `PolicyFactory`.
+	- Implementors can pass the built `Policy` object to `LocalAuthManager#authenticateUser(Policy)` in order to generate a Local Auth Request.
+  * Support for implementors to let End Users set factors even when unlinked.
+  * Protection against making changes in the Security view when there is a pending request.
+
+* Fixed
+  * Issue with the camera view (in default linking view) not restarting after failing to scan a valid QR code or End User backing out of providing a name for a device after scanning a QR code.
+  * Issue displaying "Enabled factors" header in the Security view when there are no Security factors set.
+  * Various UI issues around alignment, style, and theming.
+  * Inconsistent crash when canceling a Fingerprint Scan dialog.
+  * Issue notifying implementing application the SDK is done working on the key generated preluding the linking step.
+  * Issue prolonging the location check of the device during a request.
+  * Issue with default linking view not showing the manual entry of linking codes when permissions to the camera were denied.
+
 v4.1.0
 ------
 * Updated
