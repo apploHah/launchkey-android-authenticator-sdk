@@ -28,6 +28,7 @@ import java.util.Locale;
 public class DemoApplication extends Application {
 
     public static final String TAG = DemoApplication.class.getSimpleName();
+    public static final boolean CONFIG_ALLOW_LAR = true;
 
     private static final int NOTIFICATION_ID = 100;
 
@@ -51,8 +52,8 @@ public class DemoApplication extends Application {
 
         final AuthenticatorManager manager = AuthenticatorManager.getInstance();
 
-        final int geofencingDelaySeconds = 20 * 60;     //20 minutes
-        final int proximityDelaySeconds = 10 * 60;      //10 minutes
+        final int geofencingDelaySeconds = 0;
+        final int proximityDelaySeconds = 25;
 
         manager.initialize(
                         new AuthenticatorConfig.Builder(this, R.string.authenticator_sdk_key)
@@ -60,6 +61,7 @@ public class DemoApplication extends Application {
                                 .activationDelayProximity(proximityDelaySeconds)
                                 .keyPairSize(keyPairSizeBits)
                                 .theme(R.style.DemoAppTheme)
+                                .allowSecurityChangesWhenUnlinked(CONFIG_ALLOW_LAR)
                                 //.customFont("fonts/ostrich-regular.ttf")
                                 .build());
 

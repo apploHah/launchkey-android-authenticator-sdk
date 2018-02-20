@@ -11,10 +11,14 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
+import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequest;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequestManager;
+import com.launchkey.android.authenticator.sdk.auth.LocalAuthManager;
 import com.launchkey.android.authenticator.sdk.auth.event.AuthRequestResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.event.GetAuthRequestEventCallback;
+import com.launchkey.android.authenticator.sdk.auth.event.LocalAuthResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.authenticator.sdk.error.DeviceNotLinkedError;
 import com.launchkey.android.whitelabel.demo.R;
@@ -25,11 +29,16 @@ import com.launchkey.android.whitelabel.demo.util.Utils;
  */
 public class AuthRequestActivity extends BaseDemoActivity {
 
+    private AuthenticatorManager mAuthenticatorManager;
+    private DeviceUnlinkedEventCallback mOnUnlink;
     private AuthRequestManager mAuthRequestManager;
-    private TextView mNoRequestsView;
-    private Toolbar mToolbar;
     private GetAuthRequestEventCallback mGetAuthCallback;
     private AuthRequestResponseEventCallback mAuthResponseCallback;
+    private LocalAuthManager mLocalAuthManager;
+    private LocalAuthResponseEventCallback mLocalResponseCallback;
+
+    private TextView mNoRequestsView;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,9 +51,20 @@ public class AuthRequestActivity extends BaseDemoActivity {
 
         mNoRequestsView = (TextView) findViewById(R.id.demo_activity_authrequest_norequest);
 
+        mAuthenticatorManager = AuthenticatorManager.getInstance();
+
+        mOnUnlink = new DeviceUnlinkedEventCallback() {
+            @Override
+            public void onEventResult(boolean ok, BaseError e, Object o) {
+
+                finish();
+            }
+        };
+
         mAuthRequestManager = AuthRequestManager.getInstance(this);
 
         mGetAuthCallback = new GetAuthRequestEventCallback() {
+
             @Override
             public void onEventResult(boolean successful, BaseError error, AuthRequest authRequest) {
 
@@ -85,13 +105,39 @@ public class AuthRequestActivity extends BaseDemoActivity {
                         showUnlinkedDialog();
                     } else {
                         //this will potentially cover ExpiredAuthRequestError most of the time
-                        Toast.makeText(AuthRequestActivity.this, Utils.getMessageForBaseError(error), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AuthRequestActivity.this, Utils.getMessageForBaseError(error),
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 finish();
             }
         };
+
+        mLocalAuthManager = LocalAuthManager.getInstance();
+
+        mLocalResponseCallback = new LocalAuthResponseEventCallback() {
+
+            @Override
+            public void onEventResult(boolean successful, BaseError error, Boolean approved) {
+
+                if (successful) {
+                    mGetAuthCallback.onEventResult(true, null, null);
+                } else {
+                    if (error instanceof DeviceNotLinkedError) {
+                        showUnlinkedDialog();
+                    } else {
+                        //this will potentially cover ExpiredAuthRequestError most of the time
+                        Toast.makeText(AuthRequestActivity.this, Utils.getMessageForBaseError(error),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                finish();
+            }
+        };
+
+
     }
 
     @Override
@@ -116,12 +162,16 @@ public class AuthRequestActivity extends BaseDemoActivity {
     protected void onResume() {
         super.onResume();
         mAuthRequestManager.registerForEvents(mGetAuthCallback, mAuthResponseCallback);
+        mLocalAuthManager.registerForEvents(mLocalResponseCallback);
+        mAuthenticatorManager.registerForEvents(mOnUnlink);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mAuthRequestManager.unregisterForEvents(mGetAuthCallback, mAuthResponseCallback);
+        mLocalAuthManager.unregisterForEvents(mLocalResponseCallback);
+        mAuthenticatorManager.unregisterForEvents(mOnUnlink);
     }
 
     private void onDeny() {

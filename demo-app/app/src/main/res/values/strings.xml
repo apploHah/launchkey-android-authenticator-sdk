@@ -20,6 +20,7 @@
     <string name="demo_activity_list_feature_unlink_custom2">Unlink 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_requests_runtime">Check for Requests (Runtime)</string>
     <string name="demo_activity_list_feature_requests_xml">Check for Requests (XML)</string>
+    <string name="demo_activity_list_feature_requests_local_xml">Check for Local Requests (XML)</string>
     <string name="demo_activity_list_feature_logout_default">Log Out (Default UI)</string>
     <string name="demo_activity_list_feature_logout_custom">Log Out (Custom UI)</string>
     <string name="demo_activity_list_feature_logout_custom2">Log Out 2 (Custom UI)</string>
@@ -37,6 +38,9 @@
     <string name="demo_activity_list_feature_logs_custom">List of Logs (Custom UI)</string>
     <string name="demo_activity_list_feature_logs_custom2">List of Logs 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_securityinfo">Security Information</string>
+
+    <string name="demo_fragment_lar_error_title">Error</string>
+    <string name="demo_fragment_lar_error_pending_message">Tap \'OK\' to handle pending request.</string>
 
     <string name="notif_request_message">There is a new request.</string>
 

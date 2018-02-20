@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <Switch
+            android:id="@+id/lar_switch_count"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@android:color/black"
+            android:text="By count:"
+            />
+
+        <EditText
+            android:id="@+id/lar_edit_count"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:hint="1, 2, 3, ..."
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        >
+
+        <Switch
+            android:id="@+id/lar_switch_type"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@android:color/black"
+            android:text="By type:"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="100dp"
+        >
+
+        <Switch
+            android:id="@+id/lar_switch_type_kno"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:switchPadding="10dp"
+            android:text="Knowledge"
+            />
+
+        <Switch
+            android:id="@+id/lar_switch_type_inh"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Inherence"
+            android:switchPadding="10dp"
+            />
+
+        <Switch
+            android:id="@+id/lar_switch_type_pos"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Possession"
+            android:switchPadding="10dp"
+            />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/lar_edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:lines="1"
+        android:hint="Title of the Local Auth Request"
+        />
+
+    <EditText
+        android:id="@+id/lar_edit_expiration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:lines="1"
+        android:hint="Expiration in seconds"
+        />
+
+    <Button
+        android:id="@+id/lar_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="Generate Local Auth Request"
+        />
+</LinearLayout>

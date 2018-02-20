@@ -21,6 +21,7 @@ import com.launchkey.android.whitelabel.demo.app.DemoApplication;
 import com.launchkey.android.whitelabel.demo.ui.adapter.DemoFeatureAdapter;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomDevicesFragment3;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLinkingFragment;
+import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLocalAuthRequestFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomLogoutFragment2;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomSessionsFragment;
 import com.launchkey.android.whitelabel.demo.ui.fragment.CustomUnlinkFragment2;
@@ -46,6 +47,7 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
             R.string.demo_activity_list_feature_security_custom,
             R.string.demo_activity_list_feature_securityinfo,
             R.string.demo_activity_list_feature_requests_xml,
+            R.string.demo_activity_list_feature_requests_local_xml,
             R.string.demo_activity_list_feature_logout_custom2,
             R.string.demo_activity_list_feature_unlink_custom2,
             R.string.demo_activity_list_feature_sessions_custom,
@@ -161,11 +163,7 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
 
         switch (featureStringId) {
             case R.string.demo_activity_list_feature_link_default_manual:
-                if (linked) {
-                    showError(ERROR_DEVICE_LINKED);
-                } else {
-                    mAuthenticatorManager.startLinkingActivity(this, AuthenticatorManager.LINKING_METHOD_MANUAL);
-                }
+                mAuthenticatorManager.startLinkingActivity(this, AuthenticatorManager.LINKING_METHOD_MANUAL);
                 break;
 
             case R.string.demo_activity_list_feature_link_default_scanner:
@@ -185,28 +183,16 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                 break;
 
             case R.string.demo_activity_list_feature_security:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    mAuthenticatorManager.startSecurityActivity(this);
-                }
+                mAuthenticatorManager.startSecurityActivity(this);
                 break;
 
             case R.string.demo_activity_list_feature_security_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    Intent customSecurityActivity = new Intent(this, CustomSecurityActivity.class);
-                    startActivity(customSecurityActivity);
-                }
+                Intent customSecurityActivity = new Intent(this, CustomSecurityActivity.class);
+                startActivity(customSecurityActivity);
                 break;
 
             case R.string.demo_activity_list_feature_securityinfo:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = SecurityInfoFragment.class;
-                }
+                fragmentClassName = SecurityInfoFragment.class;
                 break;
 
             case R.string.demo_activity_list_feature_requests_xml:
@@ -215,6 +201,15 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                 } else {
                     Intent authRequestActivity = new Intent(this, AuthRequestActivity.class);
                     startActivity(authRequestActivity);
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_requests_local_xml:
+
+                if (linked || DemoApplication.CONFIG_ALLOW_LAR) {
+                    fragmentClassName = CustomLocalAuthRequestFragment.class;
+                } else {
+                    showError(ERROR_DEVICE_UNLINKED);
                 }
                 break;
 
@@ -257,188 +252,6 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                     fragmentClassName = CustomDevicesFragment3.class;
                 }
                 break;
-
-            /*
-            case R.string.demo_activity_list_feature_link_default_manual:
-
-                if (linked) {
-                    showError(ERROR_DEVICE_LINKED);
-                } else {
-                    getAuthenticatorManager().displayLinkingUi(this, AuthenticatorManager.LINKING_METHOD_MANUAL);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_link_default_scanner:
-                if (linked) {
-                    showError(ERROR_DEVICE_LINKED);
-                } else {
-                    getAuthenticatorManager().displayLinkingUi(this, AuthenticatorManager.LINKING_METHOD_SCAN);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_link_custom:
-                if (linked) {
-                    showError(ERROR_DEVICE_LINKED);
-                } else {
-                    fragmentClassName = CustomLinkingFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_requests_runtime:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = AuthRequestFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_requests_xml:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    Intent authRequestActivity = new Intent(this, AuthRequestActivity.class);
-                    startActivity(authRequestActivity);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_logout_default:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    getAuthenticatorManager().logOut(this);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_logout_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomLogoutFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_unlink_default:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    getAuthenticatorManager().unlink(this);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_unlink_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomUnlinkFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_security:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    getAuthenticatorManager().displaySecurity(this);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_authorizations_default:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = AuthorizationsFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_authorizations_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomAuthorizationsFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_authorizations_custom2:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomAuthorizationsFragment2.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_devices_default:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = DevicesFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_devices_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomDevicesFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_devices_custom2:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomDevicesFragment2.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_logs_default:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = LogsFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_logs_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomLogsFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_logs_custom2:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomLogsFragment2.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_totps_default:
-
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    Intent otpsActivity = new Intent(this, OtpsActivity.class);
-                    startActivity(otpsActivity);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_totps_custom:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = CustomTotpsFragment.class.getCanonicalName();
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_securityinfo:
-                if (!linked) {
-                    showError(ERROR_DEVICE_UNLINKED);
-                } else {
-                    fragmentClassName = SecurityInfoFragment.class.getCanonicalName();
-                }
-                break;
-                */
         }
 
         if (fragmentClassName != null) {
@@ -452,48 +265,6 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
             startActivity(fragmentActivity);
         }
     }
-    /*
-
-    //SESSION-BASED EVENT(S)
-
-    @Override
-    public void onSessionUpdate(boolean hasActiveSessions) {
-        if (hasActiveSessions) {
-            showMessage("There are active sessions");
-        }
-    }
-
-    //ACCOUNT-BASED EVENT(S)
-
-    @Override
-    public void onRequestUpdate(boolean hasPendingRequests) {
-        showMessage("There are pending requests!");
-    }
-
-    @Override
-    public void onAuthenticationSuccess(boolean approved) {
-        String status = approved ? "Approved" : "Denied";
-        showMessage("Request has been responded: ".concat(status));
-    }
-
-    @Override
-    public void onAuthenticationFailure(BaseError error) {
-        updateUi();
-        showError("Authentication failure: " + Utils.getMessageForBaseError(error));
-    }
-
-    @Override
-    public void onUnlink() {
-        updateUi();
-        showMessage("Device unlinked");
-    }
-
-    @Override
-    public void onLogout() {
-        showMessage("Logged out of active sessions");
-    }
-
-    */
 
     private void showError(int messageRes) {
         showError(getString(messageRes));
