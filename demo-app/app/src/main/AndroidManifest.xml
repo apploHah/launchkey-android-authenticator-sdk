@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.launchkey.android.whitelabel.demo">
+    package="com.launchkey.android.authenticator.demo">
 
     <!-- GCM-required package-based permissions -->
     <permission
-        android:name="com.launchkey.android.whitelabel.demo.permission.C2D_MESSAGE"
+        android:name="com.launchkey.android.authenticator.demo.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.launchkey.android.whitelabel.demo.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.launchkey.android.authenticator.demo.permission.C2D_MESSAGE" />
     <!-- All other GCM-required permissions are part of the SDK manifest and will be merged here -->
 
 
     <!-- Required package-specific permissions by Google Maps for Android -->
     <permission
-        android:name="com.launchkey.android.whitelabel.demo.permission.MAPS_RECEIVE"
+        android:name="com.launchkey.android.authenticator.demo.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
-    <uses-permission android:name="com.launchkey.android.whitelabel.demo.permission.MAPS_RECEIVE"/>
+    <uses-permission android:name="com.launchkey.android.authenticator.demo.permission.MAPS_RECEIVE"/>
     
     <application
         android:name=".app.DemoApplication"
@@ -60,12 +60,12 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.launchkey.android.whitelabel.demo" />
+                <category android:name="com.launchkey.android.authenticator.demo" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="com.launchkey.android.whitelabel.demo.push.PushListenerService"
+            android:name="com.launchkey.android.authenticator.demo.push.PushListenerService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -73,7 +73,7 @@
         </service>
 
         <service
-            android:name="com.launchkey.android.whitelabel.demo.push.PushIdInstanceListenerService"
+            android:name="com.launchkey.android.authenticator.demo.push.PushIdInstanceListenerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID"/>
@@ -81,7 +81,7 @@
         </service>
 
         <service
-            android:name="com.launchkey.android.whitelabel.demo.push.PushRegIntentService"
+            android:name="com.launchkey.android.authenticator.demo.push.PushRegIntentService"
             android:exported="false">
         </service>
 
