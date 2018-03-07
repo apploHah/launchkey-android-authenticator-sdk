@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+v4.2.1
+------
+* Fixed
+  * Issue with the UI not updating during verification of Geofencing as a factor affecting v4.2.0.
+  * Smaller issues with UI elements affecting v4.2.0.
+* Added
+  * Improvements around the update of push notification tokens.
+
 v4.2.0
 ------
 * Updated
