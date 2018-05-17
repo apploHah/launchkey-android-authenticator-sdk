@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+v4.3.0
+------
+* Fixed
+  * Issue with the UI not updating the amount of factors verified during an Auth Request.
+* Added
+  * Support for internal metrics. Implementing apps can call the new `AuthenticatorManager#sendMetrics(...)` method to deliver them on demand.
+
 v4.2.1
 ------
 * Fixed
