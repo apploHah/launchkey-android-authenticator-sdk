@@ -8,10 +8,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
 import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
 import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.authenticator.sdk.device.DeviceManager;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
@@ -52,7 +55,8 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
             R.string.demo_activity_list_feature_unlink_custom2,
             R.string.demo_activity_list_feature_sessions_custom,
             R.string.demo_activity_list_feature_devices_default,
-            R.string.demo_activity_list_feature_devices_custom3
+            R.string.demo_activity_list_feature_devices_custom3,
+            R.string.demo_activity_list_feature_sendmetrics
     };
 
     private ListView mList;
@@ -250,6 +254,36 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                     showError(ERROR_DEVICE_UNLINKED);
                 } else {
                     fragmentClassName = CustomDevicesFragment3.class;
+                }
+                break;
+
+            case R.string.demo_activity_list_feature_sendmetrics:
+                if (!linked) {
+                    showError(ERROR_DEVICE_UNLINKED);
+                } else {
+
+                    SimpleOperationCallback<Void> metricsCallback = new SimpleOperationCallback<Void>() {
+
+                        @Override
+                        public void onResult(boolean ok, BaseError e, Void v) {
+
+                            if (ListDemoActivity.this.isFinishing()) {
+                                return;
+                            }
+
+                            String message = Utils.getMessageForMetrics(ok, e);
+
+                            if (ok) {
+
+                                Toast.makeText(ListDemoActivity.this, message, Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                Utils.alert(ListDemoActivity.this, "Error sending metrics", message);
+                            }
+                        }
+                    };
+
+                    mAuthenticatorManager.sendMetrics(metricsCallback);
                 }
                 break;
         }

@@ -95,6 +95,11 @@ public final class Utils {
         }
     }
 
+    public static String getMessageForMetrics(boolean ok, BaseError error) {
+
+        return ok ? "Metrics sent" : (error != null ? error.getMessage() : "");
+    }
+
     public static void simpleSnackbarForBaseError(View v, BaseError e) {
         if (v == null || e == null) {
             return;
