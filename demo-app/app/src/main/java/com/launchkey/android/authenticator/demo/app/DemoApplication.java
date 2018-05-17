@@ -51,8 +51,8 @@ public class DemoApplication extends Application {
 
         final AuthenticatorManager manager = AuthenticatorManager.getInstance();
 
-        final int geofencingDelaySeconds = 20 * 60;     //20 minutes
-        final int proximityDelaySeconds = 10 * 60;      //10 minutes
+        final int geofencingDelaySeconds = 60;
+        final int proximityDelaySeconds = 30;
 
         manager.initialize(
                         new AuthenticatorConfig.Builder(this, R.string.authenticator_sdk_key)

@@ -38,6 +38,7 @@
     <string name="demo_activity_list_feature_logs_custom">List of Logs (Custom UI)</string>
     <string name="demo_activity_list_feature_logs_custom2">List of Logs 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_securityinfo">Security Information</string>
+    <string name="demo_activity_list_feature_sendmetrics">Send Metrics</string>
 
     <string name="demo_fragment_lar_error_title">Error</string>
     <string name="demo_fragment_lar_error_pending_message">Tap \'OK\' to handle pending request.</string>
