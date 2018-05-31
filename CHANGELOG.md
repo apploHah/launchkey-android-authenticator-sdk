@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+v4.3.1
+------
+* Fixed
+  * Issue with a few values that are part of the internal metrics sent back.
+
 v4.3.0
 ------
 * Fixed
