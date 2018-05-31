@@ -38,5 +38,5 @@ dependencies {
     //compile 'com.google.android.gms:play-services-maps:8.3.0'       // Optional to use Google Maps the map view when setting a geo-fence
     // Add to use OSM as the map view when not utilizing Google Maps:
     compile 'org.osmdroid:osmdroid-android:5.6.5@aar'
-    compile project(':lk-auth-sdk-4.3.0')
+    compile project(':lk-auth-sdk-4.3.1')
 }
