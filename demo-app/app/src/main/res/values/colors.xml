@@ -4,7 +4,17 @@
     <color name="demo_primary">#009688</color>
     <color name="demo_primaryDark">#00796B</color>
     <color name="demo_accent">#FF4081</color>
-    <color name="demo_backgrounds">#dcdcdc</color>
+
+    <color name="demo_backgrounds">#a0c1bf</color>
+    <color name="demo_backgrounds_overlay">#2d3d3c</color>
     <color name="demo_color_gray_dark">#222222</color>
     <color name="demo_color_negative">#9e2938</color>
+    <color name="demo_appbar_bg">#445553</color>
+    <color name="demo_appbar_overlay">#9fca48</color>
+    <color name="demo_slider_track_upper">#7b7d8b</color>
+    <color name="demo_slider_track_lower">#222741</color>
+    <color name="demo_slider_thumb_normal">#8288a7</color>
+    <color name="demo_slider_thumb_pressed">#8c9eff</color>
+    <color name="demo_circlecode_highlight">#8c9eff</color>
+    <color name="demo_circlecode_marks">#2d3d3c</color>
 </resources>

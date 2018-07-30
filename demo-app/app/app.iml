@@ -92,7 +92,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.3.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.3.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/demo-app/lk-auth-sdk-4.3.1/unspecified/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/demo-app/lk-auth-sdk-4.4.1/unspecified/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/org.osmdroid/osmdroid-android/5.6.5/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
@@ -121,8 +121,8 @@
     <orderEntry type="library" exported="" name="Gradle: com.android.support:design-23.4.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.android.support:animated-vector-drawable-23.4.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.bitbucket.b_c:jose4j:0.4.4@jar" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lk-auth-sdk-4.4.1::null" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.android.support:support-v4-23.4.0" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: lk-auth-sdk-4.3.1::null" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.android.support:support-annotations:23.4.0@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.android.support:recyclerview-v7-23.4.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.google.android.gms:play-services-measurement-8.3.0" level="project" />
