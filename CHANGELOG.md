@@ -1,6 +1,27 @@
 Change Log
 ==========
 
+v4.4.1
+------
+* Fixed
+  * UI glitches around activation delays.
+  * Issues with checks around Local Auth Requests.
+  * Spacing around several views in the SDK.
+  * Issue preventing end users to add a new auth method if the dialog is brought up too soon.
+  * UI issue when resuming an expired request.
+  * Issue with Snackbars overlapping views below `SecurityFragment` if embedded.
+  * Issue with the navigation leading back to an auth method view even if automatically unlinked.
+  * Bug resulting in a crash if specific conditions were presented around internal metrics and unlink events.
+  * Minor internal bugs.
+  
+* Added
+  * Support for dynamic theming that can be provided at runtime. Note: XML is still supported and those values are converted over to the new `AuthenticatorTheme.Builder` object that can be passed to the `AuthenticatorConfig.Builder` like the static reference of XMLs and the properties will be applied to the relevant views at runtime.
+  * More theme properties that can be customized.
+  
+* Updated
+  * Messaging.
+  * Layout of a few Security screens for consistency.
+
 v4.3.1
 ------
 * Fixed
