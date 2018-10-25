@@ -10,15 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.launchkey.android.authenticator.demo.util.Utils;
-import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
-import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
-import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
-import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
-import com.launchkey.android.authenticator.sdk.device.Device;
-import com.launchkey.android.authenticator.sdk.device.DeviceManager;
-import com.launchkey.android.authenticator.sdk.error.BaseError;
-import com.launchkey.android.authenticator.sdk.ui.fragment.DevicesFragment;
 import com.launchkey.android.authenticator.demo.R;
 import com.launchkey.android.authenticator.demo.app.DemoApplication;
 import com.launchkey.android.authenticator.demo.ui.adapter.DemoFeatureAdapter;
@@ -29,6 +20,15 @@ import com.launchkey.android.authenticator.demo.ui.fragment.CustomLogoutFragment
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomSessionsFragment;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomUnlinkFragment2;
 import com.launchkey.android.authenticator.demo.ui.fragment.SecurityInfoFragment;
+import com.launchkey.android.authenticator.demo.util.Utils;
+import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
+import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
+import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
+import com.launchkey.android.authenticator.sdk.device.Device;
+import com.launchkey.android.authenticator.sdk.device.DeviceManager;
+import com.launchkey.android.authenticator.sdk.error.BaseError;
+import com.launchkey.android.authenticator.sdk.ui.fragment.DevicesFragment;
 
 import java.util.Locale;
 
@@ -38,6 +38,8 @@ import java.util.Locale;
 public class ListDemoActivity extends BaseDemoActivity implements AdapterView.OnItemClickListener {
 
     public static final String EXTRA_SHOW_REQUEST = "extraShowRequest";
+
+    private static final String TAG = ListDemoActivity.class.getSimpleName();
 
     private static final String ERROR_DEVICE_UNLINKED = "Device is unlinked";
     private static final String ERROR_DEVICE_LINKED = "Device is already linked";
@@ -108,7 +110,7 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
     }
 
     private void processIntent(Intent i) {
-        if (i == null || !i.hasExtra(EXTRA_SHOW_REQUEST)) {
+        if (i == null || i.getExtras() == null || i.getExtras().isEmpty()) {
             return;
         }
 

@@ -2,18 +2,21 @@ package com.launchkey.android.authenticator.demo.app;
 
 import android.app.Application;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.push.PushRegIntentService;
 import com.launchkey.android.authenticator.demo.ui.activity.ListDemoActivity;
 import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.AuthenticatorConfig;
@@ -37,20 +40,19 @@ public class DemoApplication extends Application {
 
     private static final int NOTIFICATION_ID = 100;
 
-    private static NotificationManagerCompat mNotificationManager;
+    private static NotificationManager mNotificationManager;
 
     @Override
     public void onCreate() {
 
         initialize();
-
-        // Kick-start push registration service
-        startService(new Intent(this, PushRegIntentService.class));
+        Log.i(TAG, "Curr Token=" + FirebaseInstanceId.getInstance().getToken());
 
         super.onCreate();
     }
 
     private void initialize() {
+
         int keyPairSizeBits = AuthenticatorConfig.Builder.KEYSIZE_MINIMUM;
         //keyPairSizeBits = 3072; //Could also assign the actual value in bits.
 
@@ -147,7 +149,9 @@ public class DemoApplication extends Application {
 
             @Override
             public void onEventResult(boolean successful, BaseError error, AuthRequest authRequest) {
+
                 Log.i(TAG, "Auth Request Check s=" + successful + " err=" + Utils.getMessageForBaseError(error) + " ar=" + authRequest);
+
                 if (authRequest != null) {
                     notifyOfRequest();
                 }
@@ -156,8 +160,9 @@ public class DemoApplication extends Application {
     }
 
     private void notifyOfRequest() {
+
         if (mNotificationManager == null) {
-            mNotificationManager = NotificationManagerCompat.from(this);
+            mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
 
         Intent tapIntent = new Intent(this, ListDemoActivity.class);
@@ -166,7 +171,9 @@ public class DemoApplication extends Application {
 
         PendingIntent tapPendingIntent = PendingIntent.getActivity(this, 1, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Notification notification = new NotificationCompat.Builder(this)
+        String channelId = createAndGetNotificationChannel();
+
+        Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.ic_launcher_orange)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.notif_request_message))
@@ -175,8 +182,32 @@ public class DemoApplication extends Application {
                 .setAutoCancel(true)
                 .build();
 
-
         mNotificationManager.notify(NOTIFICATION_ID, notification);
+
+    }
+
+    private String createAndGetNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            CharSequence name = getString(R.string.notif_channel_requests_name);
+            String desc = getString(R.string.notif_channel_requests_desc);
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            String id = getString(R.string.notif_channel_requests_id);
+
+            NotificationChannel channel = new NotificationChannel(id, name, importance);
+            channel.setDescription(desc);
+            channel.setImportance(NotificationManager.IMPORTANCE_HIGH);
+            channel.setShowBadge(true);
+            channel.enableLights(true);
+            channel.enableVibration(true);
+
+            mNotificationManager.createNotificationChannel(channel);
+
+            return id;
+        }
+
+        return "none";
     }
 
     public static void cancelRequestNotification() {

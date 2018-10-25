@@ -44,6 +44,9 @@
     <string name="demo_fragment_lar_error_pending_message">Tap \'OK\' to handle pending request.</string>
 
     <string name="notif_request_message">There is a new request.</string>
+    <string name="notif_channel_requests_id">authrequests</string>
+    <string name="notif_channel_requests_name">Auth Requests</string>
+    <string name="notif_channel_requests_desc">All notifications of new Auth Requests</string>
 
     <string name="menu_refresh">Refresh</string>
     <string name="menu_add">Add</string>
