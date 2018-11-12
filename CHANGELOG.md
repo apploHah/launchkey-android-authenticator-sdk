@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+v4.5.1
+-----
+
+* Added
+  * Support for data centers.
+  * Support for 3rd-party notifications via `AuthenticatorManager#onPushNotificationPackage(String)`
+  * New methods facilitating providing payload when handled by the LaunchKey platform via `AuthenticatorManager#onPushNotification(Map<String, String>)` and `AuthenticatorManager#onPushNotification(Bundle bundle)`
+* Fixed
+  * Bug resulting in missing pending Auth Requests due to subsequent checks against a different data centers due to DNS.
+* Deprecated
+  * `AuthenticatorManager#onPushNotification(Bundle, String)`
+
 v4.4.1
 ------
 * Fixed
