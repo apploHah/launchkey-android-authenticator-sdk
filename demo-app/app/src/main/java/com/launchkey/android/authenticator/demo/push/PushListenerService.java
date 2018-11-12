@@ -18,6 +18,7 @@ public class PushListenerService extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
 
         Log.i(TAG, "Push notification received from=" + from + " data=" + data);
-        AuthenticatorManager.getInstance().onPushNotification(data, from);
+        // Deprecated: //AuthenticatorManager.getInstance().onPushNotification(data, from);
+        AuthenticatorManager.getInstance().onPushNotification(data);
     }
 }
