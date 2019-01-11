@@ -1,6 +1,25 @@
 Change Log
 ==========
 
+4.6.0
+-----
+
+* Added
+  * A new UI and UX for Auth Requests. 
+  * Support for Auth Denial Context/Options shown to the end user if Directory supports it. Note: This functionality can be customizable as an implementer if using an updated Service SDK.
+  * Support for new Auth Request response classifications to better differentiate failures, denials, and authorizations, with specific sub-types. Note: This functionality requires an implementer to use an updated Service SDK to parse the new type of response data sent back. The old type of response will stay as is in plain boolean.
+  *  New theme properties for new UI elements in the new Auth Request UI (`authResponseButton`, `authResponseButtonNegative`, `expirationTimer`, `authContentViewBackground`, `authResponseAuthorizedColor`, `authResponseDeniedColor`, `authResponseFailedColor`, `denialReasons`)
+  * Support for retrieving a specific Auth Request by ID provided by push notification payloads.
+  * Support for implementers to have parent app explicitly allow or disallow the use of specific Security Factors/Auth Methods via `AuthenticatorConfig.Builder#allowAuthMethod(...)`.
+* Fixed
+  * Minor issues happening internally in the SDK.
+  * Bug resulting in a crash when the app is idle and is attempting to send metrics back.
+  * Bug resulting in a crash when `AuthRequestFragment` is still shown after using Fingerprint Scan (on supported devices) and the end user interacts with a timeout dialog after using the fingerprint sensor.
+  * Lack of parity among iOS and Android Auth SDKs when it comes to preference and verification order of Security Factors/Auth Methods.
+* Deprecated
+  * The `AuthorizationSlider` view and its XML/Java theme properties. The slider will no longer be shown with the new UI/UX.
+  * Few methods in `AuthRequest` and `ServiceProfile` classes.
+
 v4.5.1
 -----
 
