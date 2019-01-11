@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.launchkey.android.authenticator.demo.R;
 import com.launchkey.android.authenticator.demo.app.DemoApplication;
+import com.launchkey.android.authenticator.demo.app.Notifier;
 import com.launchkey.android.authenticator.demo.ui.adapter.DemoFeatureAdapter;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomDevicesFragment3;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomLinkingFragment;
@@ -114,9 +115,8 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
             return;
         }
 
-        if (i.getBooleanExtra(EXTRA_SHOW_REQUEST, false)) {
-            onItemClick(null, null, getPositionOfFeature(R.string.demo_activity_list_feature_requests_xml), 0);
-        }
+        // For any intent extras, take end user to request view
+        onItemClick(null, null, getPositionOfFeature(R.string.demo_activity_list_feature_requests_xml), 0);
     }
 
     private int getPositionOfFeature(int feature) {
@@ -149,7 +149,7 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
     protected void onResume() {
         super.onResume();
         updateUi();
-        DemoApplication.cancelRequestNotification();
+        Notifier.getInstance(this).cancelRequestNotification();
         mAuthenticatorManager.registerForEvents(mDeviceLinkedCallback, mDeviceUnlinkedCallback);
     }
 

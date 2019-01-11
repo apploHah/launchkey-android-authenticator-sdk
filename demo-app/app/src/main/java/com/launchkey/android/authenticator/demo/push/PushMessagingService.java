@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.launchkey.android.authenticator.sdk.auth.AuthRequestManager;
+import com.launchkey.android.authenticator.demo.app.Notifier;
 
 public class PushMessagingService extends FirebaseMessagingService {
 
@@ -14,8 +14,13 @@ public class PushMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        Log.i(TAG, "RemoteMessage=" + remoteMessage.getData());
+        if (remoteMessage == null) {
+            Log.e(TAG, "RemoteMessage is null.");
+            return;
+        }
 
-        AuthRequestManager.getInstance(this).check();
+        Log.i(TAG, "RemoteMessage.Data=" + remoteMessage.getData());
+
+        Notifier.getInstance(this).notifyOfRequest(remoteMessage.getNotification());
     }
 }

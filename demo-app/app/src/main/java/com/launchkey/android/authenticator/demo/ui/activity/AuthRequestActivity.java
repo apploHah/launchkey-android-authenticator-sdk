@@ -137,7 +137,7 @@ public class AuthRequestActivity extends BaseDemoActivity {
             }
         };
 
-
+        onRefresh();
     }
 
     @Override
