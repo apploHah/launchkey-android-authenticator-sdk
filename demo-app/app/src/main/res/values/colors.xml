@@ -17,4 +17,6 @@
     <color name="demo_slider_thumb_pressed">#8c9eff</color>
     <color name="demo_circlecode_highlight">#8c9eff</color>
     <color name="demo_circlecode_marks">#2d3d3c</color>
+
+    <color name="demo_auth_content_bg">#caffffff</color>
 </resources>

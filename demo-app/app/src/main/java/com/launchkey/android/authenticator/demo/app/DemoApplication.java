@@ -80,12 +80,15 @@ public class DemoApplication extends Application {
                 .buttonNegative(
                         new ColorDrawable(ContextCompat.getColor(this, R.color.demo_color_negative)),
                         Color.WHITE)
+                // Deprecated since 4.6.0
+                /*
                 .authSlider(
                         ContextCompat.getColor(this, R.color.demo_slider_track_upper),
                         ContextCompat.getColor(this, R.color.demo_slider_track_lower),
                         ContextCompat.getColor(this, R.color.demo_slider_thumb_normal),
                         ContextCompat.getColor(this, R.color.demo_slider_thumb_pressed),
                         ContextCompat.getColor(this, R.color.demo_color_gray_dark))
+                */
                 .pinCode(
                         ContextCompat.getDrawable(this, R.drawable.pinpad_button_bg),
                         ContextCompat.getColorStateList(this, R.color.pinpad_button_text))
@@ -98,6 +101,8 @@ public class DemoApplication extends Application {
                 //.factorsSecurityIcons(View.VISIBLE, R.drawable.ic_photo_camera_white_24dp, R.drawable.ic_clear_white_24dp, R.drawable.ic_help_black_24dp, 0, 0, ContextCompat.getColor(this, R.color.lk_otp_tokens_orange))
                 //.editText(ContextCompat.getColor(this, R.color.lk_otp_tokens_orange), ContextCompat.getColor(this, R.color.lk_otp_tokens_blue))
                 //.factorsBusyIcons(R.drawable.ic_check_black_48dp, R.drawable.ic_check_black_48dp, R.drawable.ic_check_black_48dp)
+                // One of the new properties in 4.6.0
+                .authContentViewBackground(ContextCompat.getColor(this, R.color.demo_auth_content_bg))
                 .build();
 
         final AuthenticatorManager manager = AuthenticatorManager.getInstance();
