@@ -23,7 +23,6 @@ import java.util.Locale;
 public class DemoApplication extends Application {
 
     public static final String TAG = DemoApplication.class.getSimpleName();
-    public static final boolean CONFIG_ALLOW_LAR = false;
 
     @Override
     public void onCreate() {
@@ -74,7 +73,6 @@ public class DemoApplication extends Application {
                 .keyPairSize(keyPairSizeBits)
                 .theme(R.style.DemoAppTheme) // Built theme programmatically in the next line
                 //.theme(customTheme)
-                .allowSecurityChangesWhenUnlinked(CONFIG_ALLOW_LAR)
                 .build();
 
         final AuthenticatorManager manager = AuthenticatorManager.getInstance();

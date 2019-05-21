@@ -11,12 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.app.DemoApplication;
 import com.launchkey.android.authenticator.demo.app.Notifier;
 import com.launchkey.android.authenticator.demo.ui.adapter.DemoFeatureAdapter;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomDevicesFragment3;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomLinkingFragment;
-import com.launchkey.android.authenticator.demo.ui.fragment.CustomLocalAuthRequestFragment;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomLogoutFragment2;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomSessionsFragment;
 import com.launchkey.android.authenticator.demo.ui.fragment.CustomUnlinkFragment2;
@@ -53,7 +51,6 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
             R.string.demo_activity_list_feature_security_custom,
             R.string.demo_activity_list_feature_securityinfo,
             R.string.demo_activity_list_feature_requests_xml,
-            R.string.demo_activity_list_feature_requests_local_xml,
             R.string.demo_activity_list_feature_logout_custom2,
             R.string.demo_activity_list_feature_unlink_custom2,
             R.string.demo_activity_list_feature_sessions_custom,
@@ -255,15 +252,6 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
                 } else {
                     Intent authRequestActivity = new Intent(this, AuthRequestActivity.class);
                     startActivity(authRequestActivity);
-                }
-                break;
-
-            case R.string.demo_activity_list_feature_requests_local_xml:
-
-                if (linked || DemoApplication.CONFIG_ALLOW_LAR) {
-                    fragmentClassName = CustomLocalAuthRequestFragment.class;
-                } else {
-                    showError(ERROR_DEVICE_UNLINKED);
                 }
                 break;
 

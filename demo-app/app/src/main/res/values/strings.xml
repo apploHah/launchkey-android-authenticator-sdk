@@ -32,7 +32,6 @@
     <string name="demo_activity_list_feature_unlink_custom2">Unlink 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_requests_runtime">Check for Requests (Runtime)</string>
     <string name="demo_activity_list_feature_requests_xml">Check for Requests (XML)</string>
-    <string name="demo_activity_list_feature_requests_local_xml">Check for Local Requests (XML)</string>
 
     <string name="demo_activity_list_feature_requests_local_expiration_seconds_hint">Expiration in seconds (min=%1$d, max=%2$d)</string>
     <string name="demo_activity_list_feature_requests_local_result_message">Local Auth Request %1$s</string>
