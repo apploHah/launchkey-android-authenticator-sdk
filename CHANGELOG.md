@@ -1,6 +1,29 @@
 Change Log
 ==========
 
+v4.7.0
+------
+
+* Added
+  * Auth Method Insights in encrypted response to implementer. **Note:** Requires a version of the implemented Service SDK that supports this feature in order to parse and provide that data.
+  * Support for a configurable Auth Failure threshold via `AuthenticatorConfig.Builder#thresholdAuthFailure(...)`.
+  * Support for configurable Auto-Unlink thresholds via `AuthenticatorConfig.Builder#thresholdAutoUnlink(...)`.
+  * New code under `ApiError` when attempting to retrieve (or respond to) an Auth Request canceled by the implementer.
+  * New messaging shown to the end user in the failure view if they attempted to respond to a request that has been canceled by the implementer.
+  * Minor improvements.
+
+* Updated
+  * Tweaked Auth Request UI.
+  * `AuthenticatorConfig` returned by the SDK will not return the SDK key if already initialized.
+  * Optimizations to PIN Code view layout inflation ([#9](https://github.com/iovation/launchkey-android-authenticator-sdk/issues/9)).
+
+* Fixed
+  * Bug having SDK rely on an invalid cached API time after reboots.
+  * Bug preventing the SDK from re-generating a key when unlinked in order to link the authenticator once again ([#37](https://github.com/iovation/launchkey-android-authenticator-sdk/issues/37)).
+  * Bug displaying a confirmation dialog twice when adding a geo-fence for the first time.
+  * Bug resulting in a crash on apps targeting 27 and up due to a transparent `Activity` when using the default linking views ([#32](https://github.com/iovation/launchkey-android-authenticator-sdk/issues/32)).
+  * Few minor bugs.
+
 4.6.0
 -----
 
