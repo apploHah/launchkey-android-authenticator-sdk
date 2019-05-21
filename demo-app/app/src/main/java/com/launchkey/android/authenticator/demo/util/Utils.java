@@ -6,7 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.TextView;
 
 import com.launchkey.android.authenticator.sdk.error.ApiError;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
@@ -15,7 +14,6 @@ import com.launchkey.android.authenticator.sdk.error.DeviceNotFoundError;
 import com.launchkey.android.authenticator.sdk.error.DeviceNotLinkedError;
 import com.launchkey.android.authenticator.sdk.error.ExpiredAuthRequestError;
 import com.launchkey.android.authenticator.sdk.error.GcmSetupError;
-import com.launchkey.android.authenticator.sdk.error.LocalAuthRequestPendingError;
 import com.launchkey.android.authenticator.sdk.error.MalformedLinkingCodeError;
 import com.launchkey.android.authenticator.sdk.error.NoInternetConnectivityError;
 import com.launchkey.android.authenticator.sdk.error.NoSecurityFactorsError;
@@ -49,8 +47,6 @@ public final class Utils {
 
         if (e instanceof NoInternetConnectivityError) {
             m = "No internet connectivity--check your connection";
-        } else if (e instanceof LocalAuthRequestPendingError) {
-            m = "Local Auth Request still pending.";
         } else if (e instanceof NoSecurityFactorsError) {
             m = "User authentication is not possible when no Security factors are set.";
         } else if (e instanceof RequestArgumentError) {

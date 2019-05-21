@@ -17,11 +17,8 @@ import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
 import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequest;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequestManager;
-import com.launchkey.android.authenticator.sdk.auth.LocalAuthManager;
-import com.launchkey.android.authenticator.sdk.auth.LocalAuthRequest;
 import com.launchkey.android.authenticator.sdk.auth.event.AuthRequestResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.event.GetAuthRequestEventCallback;
-import com.launchkey.android.authenticator.sdk.auth.event.LocalAuthResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.authenticator.sdk.error.DeviceNotLinkedError;
 
@@ -35,8 +32,6 @@ public class AuthRequestActivity extends BaseDemoActivity {
     private AuthRequestManager mAuthRequestManager;
     private GetAuthRequestEventCallback mGetAuthCallback;
     private AuthRequestResponseEventCallback mAuthResponseCallback;
-    private LocalAuthManager mLocalAuthManager;
-    private LocalAuthResponseEventCallback mLocalResponseCallback;
 
     private TextView mNoRequestsView;
     private Toolbar mToolbar;
@@ -98,29 +93,6 @@ public class AuthRequestActivity extends BaseDemoActivity {
             }
         };
 
-        mLocalAuthManager = LocalAuthManager.getInstance();
-
-        mLocalResponseCallback = new LocalAuthResponseEventCallback() {
-
-            @Override
-            public void onEventResult(boolean successful, BaseError error, Boolean approved) {
-
-                if (successful) {
-                    mGetAuthCallback.onEventResult(true, null, null);
-                } else {
-                    if (error instanceof DeviceNotLinkedError) {
-                        showUnlinkedDialog();
-                    } else {
-                        //this will potentially cover ExpiredAuthRequestError most of the time
-                        Toast.makeText(AuthRequestActivity.this, Utils.getMessageForBaseError(error),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                finishIfNecessary();
-            }
-        };
-
         updateNoRequestsView(false);
     }
 
@@ -146,7 +118,6 @@ public class AuthRequestActivity extends BaseDemoActivity {
     protected void onResume() {
         super.onResume();
         mAuthRequestManager.registerForEvents(mGetAuthCallback, mAuthResponseCallback);
-        mLocalAuthManager.registerForEvents(mLocalResponseCallback);
         mAuthenticatorManager.registerForEvents(mOnUnlink);
     }
 
@@ -154,14 +125,13 @@ public class AuthRequestActivity extends BaseDemoActivity {
     protected void onPause() {
         super.onPause();
         mAuthRequestManager.unregisterForEvents(mGetAuthCallback, mAuthResponseCallback);
-        mLocalAuthManager.unregisterForEvents(mLocalResponseCallback);
         mAuthenticatorManager.unregisterForEvents(mOnUnlink);
     }
 
     @Override
     public void onBackPressed() {
 
-        if (mAuthRequestManager.hasPending() || mLocalAuthManager.isAuthenticating()) {
+        if (mAuthRequestManager.hasPending()) {
             return;
         }
 
@@ -179,18 +149,14 @@ public class AuthRequestActivity extends BaseDemoActivity {
                 : R.string.demo_activity_authrequest_norequests_message;
         mNoRequestsView.setText(messageRes);
 
-        AuthRequest ar = mAuthRequestManager.getPendingAuthRequest();
-        LocalAuthRequest lar = mLocalAuthManager.getPendingRequest();
-        boolean hasPending = ar != null || lar != null;
+        boolean hasPending = mAuthRequestManager.getPendingAuthRequest() != null;
 
         mNoRequestsView.setVisibility(hasPending ? View.GONE : View.VISIBLE);
     }
 
     private void finishIfNecessary() {
 
-        AuthRequest ar = mAuthRequestManager.getPendingAuthRequest();
-        LocalAuthRequest lar = mLocalAuthManager.getPendingRequest();
-        boolean hasPending = ar != null || lar != null;
+        boolean hasPending = mAuthRequestManager.getPendingAuthRequest() != null;
 
         if (!hasPending) {
 
