@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 
+import com.launchkey.android.authenticator.demo.R;
 import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
-import com.launchkey.android.authenticator.demo.R;
 
 /**
  * Created by armando on 7/8/16.

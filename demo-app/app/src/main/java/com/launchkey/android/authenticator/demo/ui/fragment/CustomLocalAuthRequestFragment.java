@@ -13,7 +13,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
+import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.demo.ui.activity.AuthRequestActivity;
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.auth.LocalAuthManager;
 import com.launchkey.android.authenticator.sdk.auth.LocalAuthRequest;
 import com.launchkey.android.authenticator.sdk.auth.Policy;
@@ -22,9 +26,6 @@ import com.launchkey.android.authenticator.sdk.auth.event.GetLocalAuthEventCallb
 import com.launchkey.android.authenticator.sdk.auth.event.LocalAuthResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.authenticator.sdk.error.LocalAuthRequestPendingError;
-import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.ui.activity.AuthRequestActivity;
-import com.launchkey.android.authenticator.demo.util.Utils;
 
 /**
  * Created by armando on 1/4/18.
@@ -58,10 +59,7 @@ public class CustomLocalAuthRequestFragment extends BaseDemoFragment {
         mGenerate = (Button) mRoot.findViewById(R.id.lar_button);
 
         mExpiration = (EditText) mRoot.findViewById(R.id.lar_edit_expiration);
-        mExpiration.setHint("Expiration in seconds" +
-                " (min=" + LocalAuthManager.EXPIRE_IN_SECONDS_DEFAULT +
-                " max=" + LocalAuthManager.EXPIRE_IN_SECONDS_MAX +
-                ")");
+        mExpiration.setHint(getString(R.string.demo_activity_list_feature_requests_local_expiration_seconds_hint, LocalAuthManager.EXPIRE_IN_SECONDS_DEFAULT, LocalAuthManager.EXPIRE_IN_SECONDS_MAX));
 
         return mRoot;
     }
@@ -135,12 +133,18 @@ public class CustomLocalAuthRequestFragment extends BaseDemoFragment {
                                 .concat(getString(R.string.demo_fragment_lar_error_pending_message));
                     }
 
-                    new AlertDialog.Builder(getActivity())
+                    AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                             .setTitle(R.string.demo_fragment_lar_error_title)
                             .setMessage(errorMessage)
                             .setPositiveButton(R.string.demo_generic_ok, okClick)
-                            .create()
-                            .show();
+                            .create();
+
+                    alertDialog.show();
+
+                    TextView messageView = (TextView)alertDialog.findViewById(android.R.id.message);
+                    if (messageView != null) {
+                        messageView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+                    }
                 }
             }
         };
@@ -157,7 +161,10 @@ public class CustomLocalAuthRequestFragment extends BaseDemoFragment {
 
                 if (successful) {
 
-                    message = "Local Auth Request".concat(approved ? " approved!" : " denied");
+                    message = getString(R.string.demo_activity_list_feature_requests_local_result_message,
+                            approved ?
+                            getString(R.string.demo_activity_list_feature_requests_local_result_approved) :
+                            getString(R.string.demo_activity_list_feature_requests_local_result_denied));
                 } else {
 
                     message = Utils.getMessageForBaseError(error);

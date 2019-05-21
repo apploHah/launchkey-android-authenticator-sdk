@@ -1,5 +1,6 @@
 package com.launchkey.android.authenticator.demo.app;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.google.firebase.messaging.RemoteMessage;
 import com.launchkey.android.authenticator.demo.R;
@@ -17,12 +19,17 @@ public class Notifier {
 
     private static final int NOTIFICATION_ID = 100;
 
-    private static Notifier sInstance;
+    @SuppressLint("StaticFieldLeak")
+    private static volatile Notifier sInstance;
 
     public static Notifier getInstance(Context context) {
 
         if (sInstance == null) {
-            sInstance = new Notifier(context.getApplicationContext());
+            synchronized (Notifier.class) {
+                if (sInstance == null) {
+                    sInstance = new Notifier(context.getApplicationContext());
+                }
+            }
         }
 
         return sInstance;
@@ -44,7 +51,8 @@ public class Notifier {
         tapIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         tapIntent.putExtra(ListDemoActivity.EXTRA_SHOW_REQUEST, true);
 
-        PendingIntent tapPendingIntent = PendingIntent.getActivity(mAppContext, 1, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent tapPendingIntent = PendingIntent.getActivity(
+                mAppContext, 1, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String channelId = createAndGetNotificationChannel();
 
@@ -64,11 +72,13 @@ public class Notifier {
 
         if (body == null) {
 
-            body = mAppContext.getString(R.string.notif_request_message);
+            body = mAppContext.getString(R.string.demo_notification_message);
         }
 
         Notification notification = new NotificationCompat.Builder(mAppContext, channelId)
-                .setSmallIcon(R.drawable.ic_launcher_orange)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setSmallIcon(R.drawable.ic_stat_logo)
+                .setColor(ContextCompat.getColor(mAppContext, R.color.demo_primary))
                 .setContentTitle(title)
                 .setContentText(body)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(body))
@@ -84,14 +94,13 @@ public class Notifier {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            CharSequence name = mAppContext.getString(R.string.notif_channel_requests_name);
-            String desc = mAppContext.getString(R.string.notif_channel_requests_desc);
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            String id = mAppContext.getString(R.string.notif_channel_requests_id);
+            final String id = mAppContext.getString(R.string.demo_notification_channel_authrequests_id);
+            final CharSequence name = mAppContext.getString(R.string.demo_notification_channel_authrequests_name);
+            final String desc = mAppContext.getString(R.string.demo_notification_channel_authrequests_desc);
 
-            NotificationChannel channel = new NotificationChannel(id, name, importance);
+            final NotificationChannel channel =
+                    new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(desc);
-            channel.setImportance(NotificationManager.IMPORTANCE_HIGH);
             channel.setShowBadge(true);
             channel.enableLights(true);
             channel.enableVibration(true);

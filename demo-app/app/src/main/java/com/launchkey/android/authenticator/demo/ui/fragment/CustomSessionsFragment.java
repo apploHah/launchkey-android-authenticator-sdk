@@ -10,15 +10,15 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.demo.ui.adapter.DemoSessionsAdapter;
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.authenticator.sdk.session.Session;
 import com.launchkey.android.authenticator.sdk.session.SessionManager;
 import com.launchkey.android.authenticator.sdk.session.event.EndAllSessionsEventCallback;
 import com.launchkey.android.authenticator.sdk.session.event.EndSessionEventCallback;
 import com.launchkey.android.authenticator.sdk.session.event.GetSessionsEventCallback;
-import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.ui.adapter.DemoSessionsAdapter;
-import com.launchkey.android.authenticator.demo.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

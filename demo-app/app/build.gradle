@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.launchkey.android.whitelabel.demo"
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -19,28 +19,30 @@ android {
     }
 }
 
-def supportVersion = "27.0.2"
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:cardview-v7:$supportVersion"
-    compile "com.android.support:support-v4:$supportVersion"
-    compile "com.android.support:appcompat-v7:$supportVersion"
-    compile "com.android.support:design:$supportVersion"
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
-    compile 'org.bitbucket.b_c:jose4j:0.4.4'
-    implementation "com.google.android.gms:play-services-base:11.4.2"
-    //implementation "com.google.android.gms:play-services-gcm:9.0.0"        // Used only in the parent app to support push notifications
-    implementation "com.google.android.gms:play-services-wearable:11.4.2"   // Optional for Android Wear devices to show as security factors
-    //implementation 'com.getpebble:pebblekit:3.0.0'                         // Optional for now-deprecated Pebble devices to show as security factors
-    implementation "com.google.android.gms:play-services-location:11.4.2"   // Optional for better location tracking
-    implementation "com.google.android.gms:play-services-maps:11.4.2"       // Optional to use Google Maps the map view when setting a geo-fence
-
-    implementation "com.google.firebase:firebase-messaging:11.4.2"
-    // Add to use OSM as the map view when not utilizing Google Maps:
-    compile 'org.osmdroid:osmdroid-android:5.6.5@aar'
-    compile project(':lk-auth-sdk-4.6.0')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // Support
+    def supportLibsVersion = "28.0.0"
+    implementation "com.android.support:support-v4:$supportLibsVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibsVersion"
+    implementation "com.android.support:design:$supportLibsVersion"
+    // Google Play Services
+    implementation 'com.google.android.gms:play-services-base:16.1.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+    implementation 'com.google.android.gms:play-services-wearable:16.0.1'
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    // Auth SDK Dependencies
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.3.1'
+    implementation 'org.bitbucket.b_c:jose4j:0.4.4'
+    implementation 'org.osmdroid:osmdroid-android:5.6.5@aar'
+    // Optional for now-deprecated Pebble devices paired to show as Auth Methods
+    //implementation 'com.getpebble:pebblekit:3.0.0'
+    // Optional to use Google Maps for the map view when setting a user location
+    //implementation "com.google.android.gms:play-services-maps:${playServicesVersion}"
+    implementation project(':lk-auth-sdk-4.7.0')
 }
 
 apply plugin: 'com.google.gms.google-services'

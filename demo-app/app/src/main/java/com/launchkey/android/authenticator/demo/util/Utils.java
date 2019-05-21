@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.TextView;
 
 import com.launchkey.android.authenticator.sdk.error.ApiError;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
@@ -93,11 +94,6 @@ public final class Utils {
             default:
                 return "Extras:\n".concat(e.getMessage());
         }
-    }
-
-    public static String getMessageForMetrics(boolean ok, BaseError error) {
-
-        return ok ? "Metrics sent" : (error != null ? error.getMessage() : "");
     }
 
     public static void simpleSnackbarForBaseError(View v, BaseError e) {

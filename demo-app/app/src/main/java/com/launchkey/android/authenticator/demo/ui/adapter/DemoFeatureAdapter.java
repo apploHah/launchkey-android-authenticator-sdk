@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.launchkey.android.authenticator.demo.R;
 
+
 /**
  * Created by armando on 7/8/16.
  */

@@ -11,18 +11,19 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
 import com.launchkey.android.authenticator.sdk.DeviceUnlinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequest;
 import com.launchkey.android.authenticator.sdk.auth.AuthRequestManager;
 import com.launchkey.android.authenticator.sdk.auth.LocalAuthManager;
+import com.launchkey.android.authenticator.sdk.auth.LocalAuthRequest;
 import com.launchkey.android.authenticator.sdk.auth.event.AuthRequestResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.event.GetAuthRequestEventCallback;
 import com.launchkey.android.authenticator.sdk.auth.event.LocalAuthResponseEventCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.authenticator.sdk.error.DeviceNotLinkedError;
-import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.util.Utils;
 
 /**
  * Created by armando on 8/9/16.
@@ -68,27 +69,9 @@ public class AuthRequestActivity extends BaseDemoActivity {
             @Override
             public void onEventResult(boolean successful, BaseError error, AuthRequest authRequest) {
 
-                boolean hasPending = successful && authRequest != null;
+                updateNoRequestsView(false);
 
-                if (!hasPending) {
-                    mNoRequestsView.setText("No pending requests");
-                }
-
-                if (successful) {
-                    mNoRequestsView.setVisibility(hasPending ? View.GONE : View.VISIBLE);
-
-                    if (hasPending) {
-                        mToolbar.setNavigationIcon(R.drawable.ic_clear_white_24dp);
-                        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                onDeny();
-                            }
-                        });
-                    } else {
-                        mToolbar.setNavigationIcon(null);
-                    }
-                } else {
+                if (!successful) {
                     //let the callback handle the error
                     mAuthResponseCallback.onEventResult(false, error, null);
                 }
@@ -98,6 +81,7 @@ public class AuthRequestActivity extends BaseDemoActivity {
         mAuthResponseCallback = new AuthRequestResponseEventCallback() {
             @Override
             public void onEventResult(boolean successful, BaseError error, Boolean authorized) {
+
                 if (successful) {
                     mGetAuthCallback.onEventResult(true, null, null);
                 } else {
@@ -110,7 +94,7 @@ public class AuthRequestActivity extends BaseDemoActivity {
                     }
                 }
 
-                finish();
+                finishIfNecessary();
             }
         };
 
@@ -133,11 +117,11 @@ public class AuthRequestActivity extends BaseDemoActivity {
                     }
                 }
 
-                finish();
+                finishIfNecessary();
             }
         };
 
-        onRefresh();
+        updateNoRequestsView(false);
     }
 
     @Override
@@ -174,13 +158,44 @@ public class AuthRequestActivity extends BaseDemoActivity {
         mAuthenticatorManager.unregisterForEvents(mOnUnlink);
     }
 
-    private void onDeny() {
-        mAuthRequestManager.denyAuthRequest();
+    @Override
+    public void onBackPressed() {
+
+        if (mAuthRequestManager.hasPending() || mLocalAuthManager.isAuthenticating()) {
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     private void onRefresh() {
-        mNoRequestsView.setText("Checking...");
+        updateNoRequestsView(true);
         mAuthRequestManager.check();
+    }
+
+    private void updateNoRequestsView(boolean isChecking) {
+
+        int messageRes = isChecking ? R.string.demo_activity_authrequest_refreshing_message
+                : R.string.demo_activity_authrequest_norequests_message;
+        mNoRequestsView.setText(messageRes);
+
+        AuthRequest ar = mAuthRequestManager.getPendingAuthRequest();
+        LocalAuthRequest lar = mLocalAuthManager.getPendingRequest();
+        boolean hasPending = ar != null || lar != null;
+
+        mNoRequestsView.setVisibility(hasPending ? View.GONE : View.VISIBLE);
+    }
+
+    private void finishIfNecessary() {
+
+        AuthRequest ar = mAuthRequestManager.getPendingAuthRequest();
+        LocalAuthRequest lar = mLocalAuthManager.getPendingRequest();
+        boolean hasPending = ar != null || lar != null;
+
+        if (!hasPending) {
+
+            finish();
+        }
     }
 
     private void showUnlinkedDialog() {
@@ -192,11 +207,17 @@ public class AuthRequestActivity extends BaseDemoActivity {
             }
         };
 
-        new AlertDialog.Builder(this)
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.demo_activity_authrequest_dialog_unlinked_title)
                 .setMessage(R.string.demo_activity_authrequest_dialog_unlinked_message)
                 .setPositiveButton(R.string.demo_generic_ok, positiveClick)
-                .create()
-                .show();
+                .create();
+
+        alertDialog.show();
+
+        TextView messageView = (TextView) alertDialog.findViewById(android.R.id.message);
+        if (messageView != null) {
+            messageView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+        }
     }
 }

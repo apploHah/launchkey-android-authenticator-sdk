@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.launchkey.android.authenticator.sdk.session.Session;
 import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.sdk.session.Session;
 
 import java.util.ArrayList;
 import java.util.List;

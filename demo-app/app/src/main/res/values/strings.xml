@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Auth Demo</string>
+    <string name="app_name">Auth SDK Demo</string>
 
     <string name="demo_generic_ok">OK</string>
+    <string name="demo_generic_error">Error: %1$s</string>
+    <string name="demo_generic_true">true</string>
+    <string name="demo_generic_false">false</string>
 
-    <string name="demo_activity_list_title_format">Auth Demo (%1$s)</string>
+    <string name="demo_error_device_already_linked">Device is already linked</string>
+    <string name="demo_generic_device_is_unlinked">Device is unlinked</string>
+
+    <string name="demo_activity_list_title_format">Auth SDK Demo (%1$s)</string>
     <string name="demo_activity_authrequest_title">Auth Request</string>
     <string name="demo_activity_otps_title">One-Time Passwords</string>
 
+    <string name="demo_activity_authrequest_refreshing_message">Checking…</string>
     <string name="demo_activity_authrequest_norequests_message">No pending requests</string>
     <string name="demo_activity_authrequest_dialog_unlinked_title">Device unlinked</string>
     <string name="demo_activity_authrequest_dialog_unlinked_message">This device has been unlinked. Tap "OK" to go back and re-link the device with a valid linking code.</string>
@@ -15,38 +22,70 @@
     <string name="demo_activity_list_feature_link_default_manual">Link (Default UI - Manual)</string>
     <string name="demo_activity_list_feature_link_default_scanner">Link (Default UI - Scanner)</string>
     <string name="demo_activity_list_feature_link_custom">Link (Custom UI - Manual)</string>
+    <string name="demo_activity_list_feature_link_custom_linking_code_hint">Linking code</string>
+    <string name="demo_activity_list_feature_link_custom_name_override_checkbox_description">Allow device name override if used</string>
+    <string name="demo_activity_list_feature_link_custom_use_name_checkbox_description">Use custom device name</string>
+    <string name="demo_activity_list_feature_link_custom_device_name_hint">Device name</string>
+    <string name="demo_activity_list_feature_link_custom_button_label">Link</string>
     <string name="demo_activity_list_feature_unlink_default">Unlink (Default UI)</string>
     <string name="demo_activity_list_feature_unlink_custom">Unlink (Custom UI)</string>
     <string name="demo_activity_list_feature_unlink_custom2">Unlink 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_requests_runtime">Check for Requests (Runtime)</string>
     <string name="demo_activity_list_feature_requests_xml">Check for Requests (XML)</string>
     <string name="demo_activity_list_feature_requests_local_xml">Check for Local Requests (XML)</string>
+
+    <string name="demo_activity_list_feature_requests_local_expiration_seconds_hint">Expiration in seconds (min=%1$d, max=%2$d)</string>
+    <string name="demo_activity_list_feature_requests_local_result_message">Local Auth Request %1$s</string>
+    <string name="demo_activity_list_feature_requests_local_result_approved">approved!</string>
+    <string name="demo_activity_list_feature_requests_local_result_denied">denied</string>
+
+    <string name="demo_fragment_larconfig_bycount_label">By count:</string>
+    <string name="demo_fragment_larconfig_count_hint">1, 2, 3, &#8230;</string>
+    <string name="demo_fragment_larconfig_bytype_label">By type:</string>
+    <string name="demo_fragment_larconfig_title_hint">Title of the Local Auth Request</string>
+    <string name="demo_fragment_larconfig_lar_edit_hint">Expiration in seconds</string>
+    <string name="demo_fragment_larconfig_generate_request_button_text">Generate Local Auth Request</string>
+
     <string name="demo_activity_list_feature_logout_default">Log Out (Default UI)</string>
     <string name="demo_activity_list_feature_logout_custom">Log Out (Custom UI)</string>
     <string name="demo_activity_list_feature_logout_custom2">Log Out 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_security">Security</string>
+    <string name="demo_activity_list_feature_security_info_line">Factor:%1$s, Category:%2$s, Active:%3$s</string>
+    <string name="demo_activity_list_feature_security_info_null_factor">Factor null</string>
+    <string name="demo_activity_list_feature_security_info_no_message">None set.</string>
+    <string name="demo_activity_list_feature_security_info_none">None</string>
+    <string name="demo_activity_list_feature_security_info_pin_code">PIN Code</string>
+    <string name="demo_activity_list_feature_security_info_circle_code">Circle Code</string>
+    <string name="demo_activity_list_feature_security_info_bluetooth_devices">Bluetooth Devices</string>
+    <string name="demo_activity_list_feature_security_info_geofencing">Geofencing</string>
+    <string name="demo_activity_list_feature_security_info_fingerprint">Fingerprint</string>
+    <string name="demo_activity_list_feature_security_info_knowledge">Knowledge</string>
+    <string name="demo_activity_list_feature_security_info_inherence">Inherence</string>
+    <string name="demo_activity_list_feature_security_info_possession">Possession</string>
     <string name="demo_activity_list_feature_security_custom">Security (Wrapping Activity)</string>
     <string name="demo_activity_list_feature_authorizations_default">List of Authorizations (Default UI)</string>
     <string name="demo_activity_list_feature_authorizations_custom">List of Authorizations (Custom UI)</string>
     <string name="demo_activity_list_feature_authorizations_custom2">List of Authorizations 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_sessions_custom">Sessions (Custom UI)</string>
+    <string name="demo_activity_list_feature_sessions_custom_clear_button_text">CLEAR ALL SESSIONS</string>
     <string name="demo_activity_list_feature_devices_default">List of Devices (Default UI)</string>
     <string name="demo_activity_list_feature_devices_custom">List of Devices (Custom UI)</string>
     <string name="demo_activity_list_feature_devices_custom2">List of Devices 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_devices_custom3">Devices 3 (Custom UI)</string>
+    <string name="demo_activity_list_feature_devices_custom3_unlink_button">Unlink</string>
+    <string name="demo_activity_list_feature_devices_custom3_current_device_label">Current device</string>
     <string name="demo_activity_list_feature_logs_default">List of Logs (Default UI)</string>
     <string name="demo_activity_list_feature_logs_custom">List of Logs (Custom UI)</string>
     <string name="demo_activity_list_feature_logs_custom2">List of Logs 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_securityinfo">Security Information</string>
-    <string name="demo_activity_list_feature_sendmetrics">Send Metrics</string>
 
     <string name="demo_fragment_lar_error_title">Error</string>
     <string name="demo_fragment_lar_error_pending_message">Tap \'OK\' to handle pending request.</string>
 
-    <string name="notif_request_message">There is a new request.</string>
-    <string name="notif_channel_requests_id">authrequests</string>
-    <string name="notif_channel_requests_name">Auth Requests</string>
-    <string name="notif_channel_requests_desc">All notifications of new Auth Requests</string>
+    <string name="demo_notification_message">There is a new request.</string>
+    <string name="demo_notification_channel_authrequests_id">authrequests</string>
+    <string name="demo_notification_channel_authrequests_name">Auth Requests</string>
+    <string name="demo_notification_channel_authrequests_desc">All pending Auth Requests.</string>
 
     <string name="menu_refresh">Refresh</string>
     <string name="menu_add">Add</string>
