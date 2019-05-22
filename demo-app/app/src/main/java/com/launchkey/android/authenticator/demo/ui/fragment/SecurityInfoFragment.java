@@ -52,7 +52,7 @@ public class SecurityInfoFragment extends BaseDemoFragment implements SecuritySe
         if (success) {
             showSecurityInformation(list);
         } else {
-            Utils.simpleSnackbar(mText, "Error: " + error.getMessage());
+            Utils.simpleSnackbar(mText, getString(R.string.demo_generic_error, error.getMessage()));
         }
     }
 
@@ -69,17 +69,18 @@ public class SecurityInfoFragment extends BaseDemoFragment implements SecuritySe
             sb.append("\n");
 
             if (f != null) {
-                sb.append(String.format("Factor:%s, Category:%s, Active:%b",
-                        getFactorName(f), getFactorCategory(f), f.isActive()));
+                sb.append(getString(R.string.demo_activity_list_feature_security_info_line,
+                        getFactorName(f), getFactorCategory(f),
+                        f.isActive() ? getString(R.string.demo_generic_true) : getString(R.string.demo_generic_false)));
             } else {
-                sb.append("Factor null");
+                sb.append(getString(R.string.demo_activity_list_feature_security_info_null_factor));
             }
         }
 
         String message = sb.toString();
 
         if (message.trim().isEmpty()) {
-            message = "None set.";
+            message = getString(R.string.demo_activity_list_feature_security_info_no_message);
         }
 
         mText.setText(message);
@@ -88,30 +89,30 @@ public class SecurityInfoFragment extends BaseDemoFragment implements SecuritySe
     private String getFactorName(SecurityFactor f) {
         switch (f.getFactor()) {
             case SecurityService.FACTOR_PIN:
-                return "PIN Code";
+                return getString(R.string.demo_activity_list_feature_security_info_pin_code);
             case SecurityService.FACTOR_CIRCLE:
-                return "Circle Code";
+                return getString(R.string.demo_activity_list_feature_security_info_circle_code);
             case SecurityService.FACTOR_PROXIMITY:
-                return "Bluetooth Devices";
+                return getString(R.string.demo_activity_list_feature_security_info_bluetooth_devices);
             case SecurityService.FACTOR_GEOFENCING:
-                return "Geofencing";
+                return getString(R.string.demo_activity_list_feature_security_info_geofencing);
             case SecurityService.FACTOR_FINGERPRINT:
-                return "Fingerprint";
+                return getString(R.string.demo_activity_list_feature_security_info_fingerprint);
             default:
-                return "None";
+                return getString(R.string.demo_activity_list_feature_security_info_none);
         }
     }
 
     private String getFactorCategory(SecurityFactor f) {
         switch (f.getCategory()) {
             case SecurityService.CATEGORY_KNOWLEDGE:
-                return "Knowledge";
+                return getString(R.string.demo_activity_list_feature_security_info_knowledge);
             case SecurityService.CATEGORY_INHERENCE:
-                return "Inherence";
+                return getString(R.string.demo_activity_list_feature_security_info_inherence);
             case SecurityService.CATEGORY_POSSESSION:
-                return "Possession";
+                return getString(R.string.demo_activity_list_feature_security_info_possession);
             default:
-                return "None";
+                return getString(R.string.demo_activity_list_feature_security_info_none);
         }
     }
 }

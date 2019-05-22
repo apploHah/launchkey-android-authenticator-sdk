@@ -4,11 +4,11 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
 import com.launchkey.android.authenticator.sdk.session.SessionManager;
-import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.util.Utils;
 
 /**
  * Created by armando on 7/20/16.

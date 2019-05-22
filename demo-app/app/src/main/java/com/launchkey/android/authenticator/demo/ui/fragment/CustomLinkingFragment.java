@@ -12,12 +12,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.AuthenticatorManager;
 import com.launchkey.android.authenticator.sdk.DeviceLinkedEventCallback;
 import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
-import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.util.Utils;
 
 /**
  * Created by armando on 7/8/16.
@@ -126,7 +126,6 @@ public class CustomLinkingFragment extends BaseDemoFragment {
     }
 
     private void showAlert(String title, String message) {
-
         new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(message)

@@ -14,7 +14,6 @@ import com.launchkey.android.authenticator.sdk.error.DeviceNotFoundError;
 import com.launchkey.android.authenticator.sdk.error.DeviceNotLinkedError;
 import com.launchkey.android.authenticator.sdk.error.ExpiredAuthRequestError;
 import com.launchkey.android.authenticator.sdk.error.GcmSetupError;
-import com.launchkey.android.authenticator.sdk.error.LocalAuthRequestPendingError;
 import com.launchkey.android.authenticator.sdk.error.MalformedLinkingCodeError;
 import com.launchkey.android.authenticator.sdk.error.NoInternetConnectivityError;
 import com.launchkey.android.authenticator.sdk.error.NoSecurityFactorsError;
@@ -48,8 +47,6 @@ public final class Utils {
 
         if (e instanceof NoInternetConnectivityError) {
             m = "No internet connectivity--check your connection";
-        } else if (e instanceof LocalAuthRequestPendingError) {
-            m = "Local Auth Request still pending.";
         } else if (e instanceof NoSecurityFactorsError) {
             m = "User authentication is not possible when no Security factors are set.";
         } else if (e instanceof RequestArgumentError) {
@@ -93,11 +90,6 @@ public final class Utils {
             default:
                 return "Extras:\n".concat(e.getMessage());
         }
-    }
-
-    public static String getMessageForMetrics(boolean ok, BaseError error) {
-
-        return ok ? "Metrics sent" : (error != null ? error.getMessage() : "");
     }
 
     public static void simpleSnackbarForBaseError(View v, BaseError e) {

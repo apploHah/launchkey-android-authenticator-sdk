@@ -1,2 +1,0 @@
-configurations.maybeCreate("default")
-artifacts.add("default", file('lk-auth-sdk-4.6.0.aar'))

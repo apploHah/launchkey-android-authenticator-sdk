@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.demo.ui.adapter.DemoDevicesAdapter;
+import com.launchkey.android.authenticator.demo.util.Utils;
 import com.launchkey.android.authenticator.sdk.SimpleOperationCallback;
 import com.launchkey.android.authenticator.sdk.device.Device;
 import com.launchkey.android.authenticator.sdk.device.DeviceManager;
 import com.launchkey.android.authenticator.sdk.device.event.GetDevicesEventCallback;
 import com.launchkey.android.authenticator.sdk.error.BaseError;
-import com.launchkey.android.authenticator.demo.R;
-import com.launchkey.android.authenticator.demo.ui.adapter.DemoDevicesAdapter;
-import com.launchkey.android.authenticator.demo.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

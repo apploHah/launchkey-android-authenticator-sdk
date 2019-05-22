@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 
-import com.launchkey.android.authenticator.sdk.ui.SecurityFragment;
 import com.launchkey.android.authenticator.demo.R;
+import com.launchkey.android.authenticator.sdk.ui.SecurityFragment;
 
 /**
  * Created by armando on 5/9/17.
