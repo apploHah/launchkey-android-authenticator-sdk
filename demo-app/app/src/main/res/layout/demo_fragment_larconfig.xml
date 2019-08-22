@@ -26,16 +26,18 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:textColor="@android:color/black"
-            android:text="By count:"
+            android:text="@string/demo_fragment_larconfig_bycount_label"
             />
 
         <EditText
             android:id="@+id/lar_edit_count"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:hint="1, 2, 3, ..."
+            android:hint="@string/demo_fragment_larconfig_count_hint"
+            android:textAlignment="viewStart"
             />
     </LinearLayout>
 
@@ -60,8 +62,9 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textColor="@android:color/black"
-            android:text="By type:"
-            />
+            android:text="@string/demo_fragment_larconfig_bytype_label"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,21 +72,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="100dp"
-        >
+        android:paddingStart="100dp">
 
         <Switch
             android:id="@+id/lar_switch_type_kno"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:switchPadding="10dp"
-            android:text="Knowledge"
+            android:text="@string/demo_activity_list_feature_security_info_knowledge"
             />
 
         <Switch
             android:id="@+id/lar_switch_type_inh"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Inherence"
+            android:text="@string/demo_activity_list_feature_security_info_inherence"
             android:switchPadding="10dp"
             />
 
@@ -91,7 +94,7 @@
             android:id="@+id/lar_switch_type_pos"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Possession"
+            android:text="@string/demo_activity_list_feature_security_info_possession"
             android:switchPadding="10dp"
             />
     </LinearLayout>
@@ -102,7 +105,8 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:lines="1"
-        android:hint="Title of the Local Auth Request"
+        android:hint="@string/demo_fragment_larconfig_title_hint"
+        android:textAlignment="viewStart"
         />
 
     <EditText
@@ -111,7 +115,8 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:lines="1"
-        android:hint="Expiration in seconds"
+        android:hint="@string/demo_fragment_larconfig_lar_edit_hint"
+        android:textAlignment="viewStart"
         />
 
     <Button
@@ -119,6 +124,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="Generate Local Auth Request"
+        android:text="@string/demo_fragment_larconfig_generate_request_button_text"
         />
 </LinearLayout>

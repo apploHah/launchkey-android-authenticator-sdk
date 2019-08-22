@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="color">@color/demo_primary</item>
         <item name="colorPrimary">@color/demo_primary</item>
         <item name="colorPrimaryDark">@color/demo_primaryDark</item>
         <item name="colorAccent">@color/demo_accent</item>
@@ -10,5 +9,10 @@
 
     <style name="AppTheme.AppCompatAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/demo_accent</item>
+    </style>
+
+    <style name="AppTheme.AppConfigs">
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">16dp</item>
     </style>
 </resources>

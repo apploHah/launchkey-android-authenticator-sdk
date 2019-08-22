@@ -12,14 +12,16 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         tools:text="Remove"
-        />
+        android:layout_alignParentEnd="true" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/demo_authorizations_item_button"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_toStartOf="@id/demo_authorizations_item_button"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/demo_authorizations_item_name"
@@ -28,6 +30,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
             tools:text="Name"
+            android:textAlignment="viewStart"
             />
 
         <TextView
@@ -37,6 +40,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:maxLines="1"
             tools:text="Context"
+            android:textAlignment="viewStart"
             />
     </LinearLayout>
 
@@ -46,7 +50,7 @@
         android:layout_below="@id/demo_authorizations_item_button"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        >
+        android:paddingStart="10dp">
 
         <TextView
             android:id="@+id/demo_authorizations_item_text_action"
@@ -56,6 +60,7 @@
             android:textSize="13dp"
             android:textStyle="bold"
             tools:text="ACTION"
+            android:textAlignment="viewStart"
             />
 
         <TextView
@@ -66,6 +71,7 @@
             android:textSize="11dp"
             android:textStyle="bold"
             tools:text="STATUS"
+            android:textAlignment="viewStart"
             />
 
         <TextView
@@ -76,6 +82,7 @@
             android:textSize="11dp"
             android:textStyle="bold"
             tools:text="TRANSACTIONAL"
+            android:textAlignment="viewStart"
             />
     </LinearLayout>
 </RelativeLayout>

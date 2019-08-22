@@ -1,0 +1,3 @@
+<issue id="InvalidPackage">
+	<ignore path="**/scprov*.jar" />
+</issue>
