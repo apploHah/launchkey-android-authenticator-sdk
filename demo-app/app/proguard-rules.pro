@@ -46,7 +46,7 @@
 #-libraryjars libs/sd-sdk-facial-processing.jar
 
 #lk sdk
--keep class com.launchkey.android.whitelabel.sdk.** { public protected *; }
+-keep class com.launchkey.android.authenticator.sdk.** { public protected *; }
 
 #security/encryption
 -keep class org.spongycastle.** {*;}
@@ -82,3 +82,7 @@
 -dontwarn com.samsung.android.**
 -dontwarn javax.**
 -dontwarn org.**
+
+-dontwarn com.abhi.barcode.frag.libv2.*
+-dontwarn okio.*
+-dontwarn com.squareup.picasso.*

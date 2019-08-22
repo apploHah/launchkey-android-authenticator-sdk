@@ -7,8 +7,9 @@
     android:maxLines="2"
     android:minLines="2"
     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-    android:gravity="left|center_vertical"
+    android:gravity="start|center_vertical"
     android:padding="17dp"
     android:ellipsize="end"
     tools:text="Text item"
+    android:textAlignment="viewStart"
     />

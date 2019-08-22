@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="CLEAR ALL SESSIONS"
+        android:text="@string/demo_activity_list_feature_sessions_custom_clear_button_text"
         />
 
     <ListView

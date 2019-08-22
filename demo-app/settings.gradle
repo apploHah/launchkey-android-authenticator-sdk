@@ -1,1 +1,1 @@
-include ':app', ':lk-auth-sdk-4.7.0'
+include ':app', ':lk-auth-sdk-4.8.1'

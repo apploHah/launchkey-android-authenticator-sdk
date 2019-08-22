@@ -15,7 +15,8 @@
         android:inputType="text"
         android:lines="1"
         android:maxLines="1"
-        android:hint="Linking code"
+        android:hint="@string/demo_activity_list_feature_link_custom_linking_code_hint"
+        android:textAlignment="viewStart"
         />
 
     <CheckBox
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:checked="true"
-        android:text="Allow device name override if used"
+        android:text="@string/demo_activity_list_feature_link_custom_name_override_checkbox_description"
         />
 
     <CheckBox
@@ -32,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Use custom device name"
+        android:text="@string/demo_activity_list_feature_link_custom_use_name_checkbox_description"
         />
 
     <EditText
@@ -44,7 +45,8 @@
         android:inputType="text"
         android:lines="1"
         android:maxLines="1"
-        android:hint="Device name"
+        android:hint="@string/demo_activity_list_feature_link_custom_device_name_hint"
+        android:textAlignment="viewStart"
         />
 
     <Button
@@ -52,6 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Link"
+        android:text="@string/demo_activity_list_feature_link_custom_button_label"
         />
 </LinearLayout>

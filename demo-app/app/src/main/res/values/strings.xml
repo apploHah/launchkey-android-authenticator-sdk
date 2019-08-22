@@ -65,6 +65,7 @@
     <string name="demo_activity_list_feature_authorizations_default">List of Authorizations (Default UI)</string>
     <string name="demo_activity_list_feature_authorizations_custom">List of Authorizations (Custom UI)</string>
     <string name="demo_activity_list_feature_authorizations_custom2">List of Authorizations 2 (Custom UI)</string>
+    <string name="demo_activity_list_feature_sessions_default">Sessions (Default UI)</string>
     <string name="demo_activity_list_feature_sessions_custom">Sessions (Custom UI)</string>
     <string name="demo_activity_list_feature_sessions_custom_clear_button_text">CLEAR ALL SESSIONS</string>
     <string name="demo_activity_list_feature_devices_default">List of Devices (Default UI)</string>
@@ -77,6 +78,22 @@
     <string name="demo_activity_list_feature_logs_custom">List of Logs (Custom UI)</string>
     <string name="demo_activity_list_feature_logs_custom2">List of Logs 2 (Custom UI)</string>
     <string name="demo_activity_list_feature_securityinfo">Security Information</string>
+
+    <string name="demo_activity_list_feature_config">Config Testing</string>
+    <string name="demo_activity_list_feature_config_pc">PIN Code</string>
+    <string name="demo_activity_list_feature_config_cc">Circle Code</string>
+    <string name="demo_activity_list_feature_config_w">Wearables</string>
+    <string name="demo_activity_list_feature_config_l">Locations</string>
+    <string name="demo_activity_list_feature_config_fs">Fingerprint Scan</string>
+    <string name="demo_activity_list_feature_config_delay_w">Wearables activation delay</string>
+    <string name="demo_activity_list_feature_config_hints_format">%1$d - %2$d</string>
+    <string name="demo_activity_list_feature_config_delay_l">Locations activation delay</string>
+    <string name="demo_activity_list_feature_config_authfailure">Auth Failure threshold</string>
+    <string name="demo_activity_list_feature_config_autounlink">Auto Unlink threshold</string>
+    <string name="demo_activity_list_feature_config_autounlinkwarning">Auto Unlink warning threshold</string>
+    <string name="demo_activity_list_feature_config_secchangesunlinked">Allow security changes when unlinked</string>
+    <string name="demo_activity_list_feature_config_endpoint_format">Endpoint: https://%1$s.%2$s</string>
+    <string name="demo_activity_list_feature_config_reinit">Re-Initialize</string>
 
     <string name="demo_fragment_lar_error_title">Error</string>
     <string name="demo_fragment_lar_error_pending_message">Tap \'OK\' to handle pending request.</string>

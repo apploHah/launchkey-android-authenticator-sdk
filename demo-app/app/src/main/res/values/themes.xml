@@ -3,30 +3,26 @@
 
     <style name="DemoAppTheme" parent="AuthenticatorTheme">
 
-        <item name="authenticatorColorPrimary">#00BCD4</item>
-        <item name="authenticatorColorPrimaryDark">#2d3d3c</item>
-        <item name="authenticatorColorAccent">#8c9eff</item>
+        <item name="authenticatorColorPrimary">@color/demo_primary</item>
+        <item name="authenticatorColorPrimaryDark">@color/demo_primaryDark</item>
+        <item name="authenticatorColorAccent">@color/demo_accent</item>
         <item name="authenticatorColorBackground">@color/demo_backgrounds</item>
-        <item name="authenticatorColorBackgroundOverlay">@color/demo_backgrounds_overlay</item>
+        <item name="authenticatorColorBackgroundOverlay">#2d3d3c</item>
 
         <item name="authenticatorColorButtonText">@android:color/white</item>
         <item name="authenticatorColorNegativeWidgetText">@android:color/white</item>
         <item name="authenticatorColorNegativeWidgetBackground">@color/demo_color_negative</item>
 
-        <item name="authenticatorToolbarBackground">@color/demo_appbar_bg</item>
-        <item name="authenticatorToolbarItems">@color/demo_appbar_overlay</item>
+        <item name="authenticatorToolbarBackground">?attr/authenticatorColorPrimary</item>
+        <item name="authenticatorToolbarItems">@android:color/white</item>
 
-        <item name="authenticatorAuthToolbarVisibility">visible</item>
+        <item name="authenticatorAuthToolbarVisibility">gone</item>
 
-        <item name="authenticatorAuthSliderTrackLight">@color/demo_slider_track_upper</item>
-        <item name="authenticatorAuthSliderTrackDark">@color/demo_slider_track_lower</item>
-        <item name="authenticatorAuthSliderThumbNormal">@color/demo_slider_thumb_normal</item>
-        <item name="authenticatorAuthSliderThumbPressed">@color/demo_slider_thumb_pressed</item>
-
-        <item name="authenticatorCirclePadHighlightColor">@color/demo_circlecode_highlight</item>
-        <item name="authenticatorCirclePadMarksColor">@color/demo_circlecode_marks</item>
+        <item name="authenticatorCirclePadHighlightColor">@color/demo_accent</item>
+        <item name="authenticatorCirclePadMarksColor">@color/demo_primaryDark</item>
 
         <item name="authenticatorPinPadButtonOverlayColorSelector">@color/pinpad_button_text</item>
         <item name="authenticatorPinPadButtonBackgroundDrawableSelector">@drawable/pinpad_button_bg</item>
+        <item name="authenticatorAuthContentViewColorBackground">@android:color/white</item>
     </style>
 </resources>
