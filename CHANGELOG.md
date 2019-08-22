@@ -1,6 +1,24 @@
 Change Log
 ==========
 
+v4.8.1
+------
+* Updated
+  * Wearables to match behavior on iOS and rely on paired and connected devices during selection and authentication.
+  * Auth failure View messaging.
+  * Public key management and validation.
+
+* Fixed
+  * Bug not allowing the theming of the "Dismiss" button in the Auth failure view.
+  * Bug showing an error when Location Services are disabled at an OS level and attempting to set up a Security Factor/Auth Method that has nothing to do with Location Services.
+  * Bug showing multiple "device name" dialogs when linking a device using the default linking view.
+  * Bug forcing the authenticator into a fairly-isolated state when dismissing the Auth failure view too quickly.
+  * Bug around Auth Requests and Airplane Mode.
+  * Bug around `JobScheduler` services.
+
+* Deprecated 
+  * The `LocalAuthManager` class and methods
+
 v4.7.0
 ------
 
