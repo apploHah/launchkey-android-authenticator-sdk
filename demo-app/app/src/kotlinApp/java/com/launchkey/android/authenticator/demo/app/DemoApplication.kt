@@ -1,8 +1,8 @@
 package com.launchkey.android.authenticator.demo.app
 
+import android.app.Application
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.multidex.MultiDexApplication
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
@@ -14,7 +14,7 @@ import com.launchkey.android.authenticator.sdk.error.BaseError
 import com.launchkey.android.authenticator.sdk.ui.theme.AuthenticatorTheme
 import java.util.*
 
-class DemoApplication : MultiDexApplication() {
+class DemoApplication : Application() {
 
     private var manager: AuthenticatorManager? = null
 

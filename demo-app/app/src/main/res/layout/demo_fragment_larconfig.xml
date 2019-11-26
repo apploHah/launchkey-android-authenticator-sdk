@@ -37,6 +37,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:hint="@string/demo_fragment_larconfig_count_hint"
+            android:gravity="start"
             android:textAlignment="viewStart"
             />
     </LinearLayout>
@@ -106,6 +107,7 @@
         android:maxLines="1"
         android:lines="1"
         android:hint="@string/demo_fragment_larconfig_title_hint"
+        android:gravity="start"
         android:textAlignment="viewStart"
         />
 
@@ -116,6 +118,7 @@
         android:maxLines="1"
         android:lines="1"
         android:hint="@string/demo_fragment_larconfig_lar_edit_hint"
+        android:gravity="start"
         android:textAlignment="viewStart"
         />
 

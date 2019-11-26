@@ -16,6 +16,7 @@
         android:lines="1"
         android:maxLines="1"
         android:hint="@string/demo_activity_list_feature_link_custom_linking_code_hint"
+        android:gravity="start"
         android:textAlignment="viewStart"
         />
 
@@ -46,6 +47,7 @@
         android:lines="1"
         android:maxLines="1"
         android:hint="@string/demo_activity_list_feature_link_custom_device_name_hint"
+        android:gravity="start"
         android:textAlignment="viewStart"
         />
 

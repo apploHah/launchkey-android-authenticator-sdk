@@ -103,6 +103,8 @@
     <string name="demo_notification_channel_authrequests_name">Auth Requests</string>
     <string name="demo_notification_channel_authrequests_desc">All pending Auth Requests.</string>
 
+    <string name="demo_commit_hash_title">Build Hash: %1$s</string>
+
     <string name="menu_refresh">Refresh</string>
     <string name="menu_add">Add</string>
 </resources>

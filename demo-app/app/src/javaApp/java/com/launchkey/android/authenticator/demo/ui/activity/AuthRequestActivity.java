@@ -1,6 +1,7 @@
 package com.launchkey.android.authenticator.demo.ui.activity;
 
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -177,9 +178,11 @@ public class AuthRequestActivity extends BaseDemoActivity {
 
         alertDialog.show();
 
-        TextView messageView = (TextView) alertDialog.findViewById(android.R.id.message);
-        if (messageView != null) {
-            messageView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            TextView messageView = alertDialog.findViewById(android.R.id.message);
+            if (messageView != null) {
+                messageView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
+            }
         }
     }
 }
