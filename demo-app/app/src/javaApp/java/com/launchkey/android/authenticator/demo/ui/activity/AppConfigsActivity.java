@@ -56,6 +56,11 @@ public class AppConfigsActivity extends BaseDemoActivity {
             }
         });
 
+        ((TextView)findViewById(R.id.configs_build_hash)).setText(
+                getString(
+                        R.string.demo_commit_hash_title,
+                        getString(R.string.demo_commit_hash)));
+
         updateUi();
     }
 

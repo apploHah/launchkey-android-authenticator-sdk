@@ -1,8 +1,9 @@
 package com.launchkey.android.authenticator.demo.app;
 
+import android.app.Application;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.multidex.MultiDexApplication;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -21,17 +22,11 @@ import com.launchkey.android.authenticator.sdk.ui.theme.AuthenticatorTheme;
 
 import java.util.Locale;
 
-public class DemoApplication extends MultiDexApplication {
+public class DemoApplication extends Application {
 
     public static final String TAG = DemoApplication.class.getSimpleName();
 
     private AuthenticatorManager manager = null;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        initialize(null);
-    }
 
     public void initialize(String sdkKey) {
 
@@ -73,13 +68,17 @@ public class DemoApplication extends MultiDexApplication {
 
         final String finalSdkKey = sdkKey != null ? sdkKey : getString(R.string.authenticator_sdk_key);
 
-        AuthenticatorConfig config = new AuthenticatorConfig.Builder(this, finalSdkKey)
+        AuthenticatorConfig.Builder configBuilder = new AuthenticatorConfig.Builder(this, finalSdkKey)
                 .activationDelayGeofencing(geofencingDelaySeconds)
                 .activationDelayProximity(proximityDelaySeconds)
                 .keyPairSize(keyPairSizeBits)
-                .theme(R.style.DemoAppTheme) // Built theme programmatically in the next line
+                .theme(R.style.DemoAppTheme); // Built theme programmatically in the next line
                 //.theme(customTheme)
-                .build();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                configBuilder.sslPinning(true);
+        }
+
+        AuthenticatorConfig config =  configBuilder.build();
 
         manager = AuthenticatorManager.getInstance();
         manager.initialize(config);

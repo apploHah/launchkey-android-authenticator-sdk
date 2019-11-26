@@ -178,5 +178,12 @@
             android:layout_gravity="center"
             android:layout_margin="10dp"
             android:text="@string/demo_activity_list_feature_config_reinit" />
+
+        <TextView
+            android:id="@+id/configs_build_hash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center" />
     </LinearLayout>
 </ScrollView>

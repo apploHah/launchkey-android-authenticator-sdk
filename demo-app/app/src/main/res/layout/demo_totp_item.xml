@@ -31,6 +31,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:maxLines="1"
             tools:text="User"
+            android:gravity="start"
             android:textAlignment="viewStart"
             />
 
@@ -41,6 +42,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:maxLines="1"
             tools:text="Service"
+            android:gravity="start"
             android:textAlignment="viewStart"
             />
     </LinearLayout>

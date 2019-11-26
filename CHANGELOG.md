@@ -1,8 +1,32 @@
 Change Log
 ==========
 
+v4.9.0
+------
+
+* Added
+  * Support for processing new policy types. Note: This new feature requires a version of the implemented Service SDK that supports it
+  * Support for processing territorial fences. Note: This new feature requires a version of the implemented Service SDK that supports it
+  * Support for generating and sending the FraudForce Blackbox to the LaunchKey API, if a supported version of the FraudForce SDK is included at the app-level, warnings are logged without the FraudForce SDK
+  * Support for new data storage approach on newer versions of Android that removes the security warning shown in the Google Play dev console
+  * Support for new biometrics API on Android 10+
+
+* Updated
+  * Auth Request behavior to ensure that End Users can always capture denial context, even when they fail the Auth Request due to Policy or Configuration
+  * Accessibility labels for improved accessibility support
+
+* Fixed
+  * Crash around layouts and RTL
+  * Crash involving Fingerprint Scan and its verification toggle
+  * UI glitch with the expiration timer in the Auth Request view
+
+* Deprecated
+  * The `Policy` and `PolicyFactory` classes
+  * `DeviceManager#getInstance(Context context)` has been replaced with `DeviceManager#getInstance()`
+
 v4.8.1
 ------
+
 * Updated
   * Wearables to match behavior on iOS and rely on paired and connected devices during selection and authentication.
   * Auth failure View messaging.

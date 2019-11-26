@@ -75,8 +75,13 @@ public class ListDemoActivity extends BaseDemoActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_activity_list);
 
+        // Makes sure we only initialize the sample app once (instead of also instantiating it in
+        // DemoApplication)
         String sdkKey = getIntent().getStringExtra("sdkKey");
-        ((DemoApplication) getApplication()).initialize(sdkKey);
+        String action = getIntent().getAction();
+        if (action != null && action.equals("android.intent.action.MAIN")) {
+            ((DemoApplication) getApplication()).initialize(sdkKey);
+        }
 
         mAuthenticatorManager = AuthenticatorManager.getInstance();
         mAuthRequestManager = AuthRequestManager.getInstance(this);

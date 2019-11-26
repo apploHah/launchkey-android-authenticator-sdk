@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.launchkey.android.authenticator.demo">
 
+    <!-- TODO: FF uses API 16, remove this when LK SDK's min SDK is updated -->
+    <uses-sdk tools:overrideLibrary="com.getpebble.android.kit, com.iovation.deviceprint.lib.DevicePrint"/>
+
     <!-- Required package-specific permissions by Google Maps for Android -->
     <permission
         android:name="com.launchkey.android.authenticator.demo.permission.MAPS_RECEIVE"
@@ -51,7 +54,8 @@
 
         <!-- Few following XML nodes are Firebase-related -->
 
-        <service android:name=".push.PushMessagingService">
+        <service android:name=".push.PushMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
