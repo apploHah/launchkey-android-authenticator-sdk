@@ -3,7 +3,7 @@ class LaunchKeyPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.with {
             android {
-                defaultConfig.proguardFiles += 'lk-proguard-rules.pro'
+                defaultConfig.proguardFiles += 'libs/lk-wl-sdk/lk-proguard-rules.pro'
 
                 dependencies {
                     // Auth SDK Dependencies
