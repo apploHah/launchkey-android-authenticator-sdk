@@ -80,10 +80,10 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-android:6.1.2@aar'
 
     // Auth SDK
-    implementation files('libs/lk-auth-sdk-4.9.0/lk-auth-sdk-4.9.0.aar')
+    implementation files('libs/lk-auth-sdk/lk-auth-sdk-4.9.0.aar')
 }
 
 // Applies the lk-proguard-rules and adds dependencies for the Auth SDK
-apply from: 'libs/lk-auth-sdk-4.9.0/build.gradle'
+apply from: 'libs/lk-auth-sdk/LaunchKeyPlugin.gradle'
 
 apply plugin: 'com.google.gms.google-services'
